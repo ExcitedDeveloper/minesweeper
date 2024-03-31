@@ -1,14 +1,12 @@
-import './App.css'
-import Board from './components/Board'
+import "./App.css";
+import Game from "./components/Game";
 
 function App() {
   return (
     <>
-      <div className='game'>
-        <Board />
-      </div>
+      <Game />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

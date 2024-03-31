@@ -1,0 +1,7 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--color-primary);
+    overflow: auto;
+    border: 10px solid var(--color-primary);
+}
