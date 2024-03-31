@@ -1,14 +1,14 @@
-import Board from "./Board";
-import Header from "./Header";
-import styles from "./Game.module.css";
+import Board from './Board'
+import Header from './Header'
+import './Game.css'
 
 const Game = () => {
   return (
-    <div className={styles.container}>
+    <div className='game__container'>
       <Header />
       <Board />
     </div>
-  );
-};
+  )
+}
 
-export default Game;
+export default Game

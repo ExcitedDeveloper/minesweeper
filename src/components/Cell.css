@@ -1,0 +1,5 @@
+.cell__container {
+  width: 30px;
+  height: 30px;
+  border: 4px outset #ececec;
+}

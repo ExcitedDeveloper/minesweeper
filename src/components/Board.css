@@ -1,0 +1,6 @@
+.board__container {
+  margin-top: 10px;
+  border: 5px inset #ececec;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}

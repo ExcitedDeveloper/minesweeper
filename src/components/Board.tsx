@@ -1,7 +1,101 @@
-import styles from "./Board.module.css";
+import './Board.css'
+import Cell from './Cell'
 
 const Board = () => {
-  return <div className={styles.container}>Board</div>;
-};
+  return (
+    <div className='board__container'>
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      {/* row */}
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+      <Cell />
+    </div>
+  )
+}
 
-export default Board;
+export default Board
