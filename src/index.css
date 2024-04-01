@@ -1,5 +1,6 @@
 :root {
   --color-primary: #c0c0c0;
+  --num-cols: 9;
 }
 
 /* Box sizing rules */

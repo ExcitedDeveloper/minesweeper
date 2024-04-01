@@ -1,101 +1,25 @@
+import { useState, useEffect } from 'react'
 import './Board.css'
 import Cell from './Cell'
 
 const Board = () => {
-  return (
-    <div className='board__container'>
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      {/* row */}
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-      <Cell />
-    </div>
-  )
+  const [numRows, setNumRows] = useState(16)
+  const [numCols, setNumCols] = useState(30)
+  const [cells, setCells] = useState<JSX.Element[]>([])
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--num-cols', `${numCols}`)
+
+    const currCells = []
+
+    for (let index = 0; index < numRows * numCols; index++) {
+      currCells.push(<Cell />)
+    }
+
+    setCells(currCells)
+  }, [numCols, numRows])
+
+  return <div className='board__container'>{cells}</div>
 }
 
 export default Board
