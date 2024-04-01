@@ -3,8 +3,8 @@ import './Board.css'
 import Cell from './Cell'
 
 const Board = () => {
-  const [numRows, setNumRows] = useState(16)
-  const [numCols, setNumCols] = useState(30)
+  const [numRows] = useState(16)
+  const [numCols] = useState(30)
   const [cells, setCells] = useState<JSX.Element[]>([])
 
   useEffect(() => {
