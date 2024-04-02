@@ -1,0 +1,11 @@
+dialog {
+  z-index: 10;
+  margin-top: 10px;
+  background: green;
+  border: none;
+  border-radius: 1rem;
+}
+
+dialog::backdrop {
+  background-color: hsl(250, 100%, 50%, 0.25);
+}
