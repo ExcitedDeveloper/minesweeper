@@ -1,15 +1,18 @@
 .header__container {
-  height: 50px;
+  height: 60px;
   border: 5px inset #ececec;
   position: relative;
 }
 
 .header__smiley {
-  width: 32px;
-  height: 32px;
+  padding: 2px;
+  width: 39px;
+  height: 39px;
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  border: 4px outset #ececec;
 }
