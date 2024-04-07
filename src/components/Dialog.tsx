@@ -50,7 +50,13 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex2'>
               <div>
                 <label>
-                  <input type='radio' name='choice' value='beginner' /> Beginner
+                  <input
+                    type='radio'
+                    className='dialog__radio'
+                    name='choice'
+                    value='beginner'
+                  />{' '}
+                  Beginner
                 </label>
               </div>
             </div>
@@ -62,7 +68,12 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex2'>
               <div>
                 <label>
-                  <input type='radio' name='choice' value='intermediate' />{' '}
+                  <input
+                    type='radio'
+                    className='dialog__radio'
+                    name='choice'
+                    value='intermediate'
+                  />{' '}
                   Intermediate
                 </label>
               </div>
@@ -75,7 +86,13 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex2'>
               <div>
                 <label>
-                  <input type='radio' name='choice' value='expert' /> Expert
+                  <input
+                    type='radio'
+                    className='dialog__radio'
+                    name='choice'
+                    value='expert'
+                  />{' '}
+                  Expert
                 </label>
               </div>
             </div>
@@ -87,7 +104,13 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex2'>
               <div>
                 <label>
-                  <input type='radio' name='choice' value='custom' /> Custom
+                  <input
+                    type='radio'
+                    className='dialog__radio'
+                    name='choice'
+                    value='custom'
+                  />{' '}
+                  Custom
                 </label>
               </div>
             </div>
