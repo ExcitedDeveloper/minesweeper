@@ -1,17 +1,31 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
+import { useState } from 'react'
 import './Header.css'
-// import smileyFace from '../assets/icons8-smiley-face-48.png'
 import smileyFace from '../assets/happiness.png'
 // import sadFace from '../assets/sad.png'
+import Dialog from './Dialog'
 
 const Header = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+
+  const closeModal = () => {
+    setModalIsOpen(false)
+  }
+
+  const handleButtonClick = () => {
+    setModalIsOpen(true)
+    console.log(`handleButtonClick`)
+  }
   return (
-    <div className='header__container'>
-      <div className='header__smiley'>
-        <img src={smileyFace} alt='Happy' />
+    <>
+      <div className='header__container'>
+        <button className='header__smiley' onClick={handleButtonClick}>
+          <img src={smileyFace} alt='Happy' />
+        </button>
       </div>
-    </div>
+      <Dialog modalIsOpen={modalIsOpen} closeModal={closeModal} />
+    </>
   )
 }
 

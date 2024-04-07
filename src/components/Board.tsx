@@ -13,7 +13,7 @@ const Board = () => {
     const currCells = []
 
     for (let index = 0; index < numRows * numCols; index++) {
-      currCells.push(<Cell />)
+      currCells.push(<Cell key={index} />)
     }
 
     setCells(currCells)
