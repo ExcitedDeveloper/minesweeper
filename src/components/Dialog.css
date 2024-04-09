@@ -47,6 +47,22 @@
   padding-left: 5px;
 }
 
+.dialog__custom_input {
+  width: 40px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex_center {
+  align-items: center;
+}
+
+.flex3 {
+  flex: 3;
+}
+
 .flex2 {
   flex: 2;
 }

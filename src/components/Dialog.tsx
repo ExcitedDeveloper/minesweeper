@@ -60,9 +60,15 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
                 </label>
               </div>
             </div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
+            <div className='flex1'>
+              <span>9</span>
+            </div>
+            <div className='flex1'>
+              <span>9</span>
+            </div>
+            <div className='flex1'>
+              <span>10</span>
+            </div>
           </div>
           <div className='dialog__row dialog__main dialog__intermediate'>
             <div className='flex2'>
@@ -78,9 +84,15 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
                 </label>
               </div>
             </div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
+            <div className='flex1'>
+              <span>16</span>
+            </div>
+            <div className='flex1'>
+              <span>16</span>
+            </div>
+            <div className='flex1'>
+              <span>40</span>
+            </div>
           </div>
           <div className='dialog__row dialog__main dialog__expert'>
             <div className='flex2'>
@@ -96,9 +108,15 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
                 </label>
               </div>
             </div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
+            <div className='flex1'>
+              <span>16</span>
+            </div>
+            <div className='flex1'>
+              <span>30</span>
+            </div>
+            <div className='flex1'>
+              <span>99</span>
+            </div>
           </div>
           <div className='dialog__row dialog__main dialog__custom'>
             <div className='flex2'>
@@ -114,9 +132,30 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
                 </label>
               </div>
             </div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
+            <div className='flex1'>
+              <input
+                type='text'
+                className='dialog__custom_input'
+                id='customHeight'
+                value={'20'}
+              />
+            </div>
+            <div className='flex1'>
+              <input
+                type='text'
+                className='dialog__custom_input'
+                id='customWidth'
+                value={'30'}
+              />
+            </div>
+            <div className='flex1'>
+              <input
+                type='text'
+                className='dialog__custom_input'
+                id='customMines'
+                value={'145'}
+              />
+            </div>
           </div>
           <div className='dialog__row dialog__main dialog__footer'>
             <div className='flex2'>
@@ -126,9 +165,16 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
                 </button>
               </div>
             </div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
-            <div className='flex1'></div>
+            <div className='flex3 flex flex_center'>
+              <label>
+                <input
+                  type='checkbox'
+                  className='dialog__checkbox'
+                  name='marks'
+                />{' '}
+                Marks (?)
+              </label>
+            </div>
           </div>
         </div>
       </form>
