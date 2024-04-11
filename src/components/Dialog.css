@@ -1,7 +1,8 @@
 .dialog__content {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  min-width: 300px;
+  max-width: 400px;
 }
 
 .dialog__title {
@@ -49,6 +50,8 @@
 
 .dialog__custom_input {
   width: 40px;
+  border: none;
+  padding-left: 2px;
 }
 
 .flex {

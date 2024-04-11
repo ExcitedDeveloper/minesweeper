@@ -55,6 +55,7 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
                     className='dialog__radio'
                     name='choice'
                     value='beginner'
+                    defaultChecked
                   />{' '}
                   Beginner
                 </label>
@@ -134,26 +135,32 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             </div>
             <div className='flex1'>
               <input
-                type='text'
+                type='number'
+                min={'5'}
+                max={'50'}
                 className='dialog__custom_input'
                 id='customHeight'
-                value={'20'}
+                defaultValue={'20'}
               />
             </div>
             <div className='flex1'>
               <input
-                type='text'
+                type='number'
+                min={'5'}
+                max={'50'}
                 className='dialog__custom_input'
                 id='customWidth'
-                value={'30'}
+                defaultValue={'30'}
               />
             </div>
             <div className='flex1'>
               <input
-                type='text'
+                type='number'
+                min={'5'}
+                max={'200'}
                 className='dialog__custom_input'
                 id='customMines'
-                value={'145'}
+                defaultValue={'145'}
               />
             </div>
           </div>
