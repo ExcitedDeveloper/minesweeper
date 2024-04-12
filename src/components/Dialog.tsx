@@ -136,6 +136,7 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex1'>
               <input
                 type='number'
+                pattern='\d*'
                 min={'5'}
                 max={'50'}
                 className='dialog__custom_input'
@@ -146,6 +147,7 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex1'>
               <input
                 type='number'
+                pattern='\d*'
                 min={'5'}
                 max={'50'}
                 className='dialog__custom_input'
@@ -156,6 +158,7 @@ const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
             <div className='flex1'>
               <input
                 type='number'
+                pattern='\d*'
                 min={'5'}
                 max={'200'}
                 className='dialog__custom_input'
