@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import { useState } from 'react'
+import { useState, createRef } from 'react'
 import './Header.css'
 import smileyFace from '../assets/happiness.png'
 // import sadFace from '../assets/sad.png'
@@ -15,7 +15,6 @@ const Header = () => {
 
   const handleButtonClick = () => {
     setModalIsOpen(true)
-    console.log(`handleButtonClick`)
   }
   return (
     <>
@@ -24,7 +23,11 @@ const Header = () => {
           <img src={smileyFace} alt='Happy' />
         </button>
       </div>
-      <Dialog modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      <Dialog
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        top={dialogTop}
+      />
     </>
   )
 }
