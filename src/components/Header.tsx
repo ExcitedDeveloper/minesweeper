@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import { useState, createRef } from 'react'
+import { useState } from 'react'
 import './Header.css'
 import smileyFace from '../assets/happiness.png'
 // import sadFace from '../assets/sad.png'
