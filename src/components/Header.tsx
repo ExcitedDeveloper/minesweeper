@@ -23,11 +23,7 @@ const Header = () => {
           <img src={smileyFace} alt='Happy' />
         </button>
       </div>
-      <Dialog
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        top={dialogTop}
-      />
+      <Dialog modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </>
   )
 }
