@@ -1,9 +1,27 @@
+import { ChangeEvent, useState } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 
+// eslint-disable-next-line react-refresh/only-export-components
+export enum GameType {
+  Beginner = 'beginner',
+  Intermediate = 'intermediate',
+  Expert = 'expert',
+  Custom = 'custom',
+}
+
+export type BoardData = {
+  gameType: GameType
+  height: number
+  width: number
+  mines: number
+  marks: boolean
+}
+
 type DialogProps = {
   modalIsOpen: boolean
-  closeModal: () => void
+  closeModal: (data?: BoardData) => void
+  initBoardData: BoardData
 }
 
 const customStyles = {
@@ -18,176 +36,215 @@ const customStyles = {
   },
 }
 
+const _gameData = {
+  [GameType.Beginner]: {
+    height: 9,
+    width: 9,
+    mines: 10,
+  },
+  [GameType.Intermediate]: {
+    height: 16,
+    width: 16,
+    mines: 40,
+  },
+  [GameType.Expert]: {
+    height: 16,
+    width: 30,
+    mines: 99,
+  },
+}
+
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root')
 
-const Dialog = ({ modalIsOpen, closeModal }: DialogProps) => {
+const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
+  const [boardData, setBoardData] = useState<BoardData>(initBoardData)
+
+  const onGameTypeChange = (e: ChangeEvent) => {
+    setBoardData((prev) => ({
+      ...prev,
+      ..._gameData[GameType[(e.target as HTMLInputElement).value]],
+    }))
+  }
+
   return (
     <Modal
       isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      onRequestClose={() => closeModal()}
       style={customStyles}
       contentLabel='Example Modal'
     >
-      <form>
-        <div className='dialog__content'>
-          <div className='dialog__row dialog__title'>
-            <span>Game</span>
+      <div className='dialog__content'>
+        <div className='dialog__row dialog__title'>
+          <span>Game</span>
+        </div>
+        <div className='dialog__row dialog__main dialog__col_headers'>
+          <div className='flex2'></div>
+          <div className='flex1'>
+            <span>Height</span>
           </div>
-          <div className='dialog__row dialog__main dialog__col_headers'>
-            <div className='flex2'></div>
-            <div className='flex1'>
-              <span>Height</span>
-            </div>
-            <div className='flex1'>
-              <span>Width</span>
-            </div>
-            <div className='flex1'>
-              <span>Mines</span>
-            </div>
+          <div className='flex1'>
+            <span>Width</span>
           </div>
-          <div className='dialog__row dialog__main dialog__beginner'>
-            <div className='flex2'>
-              <div>
-                <label>
-                  <input
-                    type='radio'
-                    className='dialog__radio'
-                    name='choice'
-                    value='beginner'
-                    defaultChecked
-                  />{' '}
-                  Beginner
-                </label>
-              </div>
-            </div>
-            <div className='flex1'>
-              <span>9</span>
-            </div>
-            <div className='flex1'>
-              <span>9</span>
-            </div>
-            <div className='flex1'>
-              <span>10</span>
-            </div>
+          <div className='flex1'>
+            <span>Mines</span>
           </div>
-          <div className='dialog__row dialog__main dialog__intermediate'>
-            <div className='flex2'>
-              <div>
-                <label>
-                  <input
-                    type='radio'
-                    className='dialog__radio'
-                    name='choice'
-                    value='intermediate'
-                  />{' '}
-                  Intermediate
-                </label>
-              </div>
-            </div>
-            <div className='flex1'>
-              <span>16</span>
-            </div>
-            <div className='flex1'>
-              <span>16</span>
-            </div>
-            <div className='flex1'>
-              <span>40</span>
-            </div>
-          </div>
-          <div className='dialog__row dialog__main dialog__expert'>
-            <div className='flex2'>
-              <div>
-                <label>
-                  <input
-                    type='radio'
-                    className='dialog__radio'
-                    name='choice'
-                    value='expert'
-                  />{' '}
-                  Expert
-                </label>
-              </div>
-            </div>
-            <div className='flex1'>
-              <span>16</span>
-            </div>
-            <div className='flex1'>
-              <span>30</span>
-            </div>
-            <div className='flex1'>
-              <span>99</span>
-            </div>
-          </div>
-          <div className='dialog__row dialog__main dialog__custom'>
-            <div className='flex2'>
-              <div>
-                <label>
-                  <input
-                    type='radio'
-                    className='dialog__radio'
-                    name='choice'
-                    value='custom'
-                  />{' '}
-                  Custom
-                </label>
-              </div>
-            </div>
-            <div className='flex1'>
-              <input
-                type='number'
-                inputMode='numeric'
-                min={'5'}
-                max={'50'}
-                className='dialog__custom_input'
-                id='customHeight'
-                defaultValue={'20'}
-              />
-            </div>
-            <div className='flex1'>
-              <input
-                type='number'
-                inputMode='numeric'
-                min={'5'}
-                max={'50'}
-                className='dialog__custom_input'
-                id='customWidth'
-                defaultValue={'30'}
-              />
-            </div>
-            <div className='flex1'>
-              <input
-                type='number'
-                inputMode='numeric'
-                min={'5'}
-                max={'200'}
-                className='dialog__custom_input'
-                id='customMines'
-                defaultValue={'145'}
-              />
-            </div>
-          </div>
-          <div className='dialog__row dialog__main dialog__footer'>
-            <div className='flex2'>
-              <div className='dialog__new_game'>
-                <button type='submit' className='dialog__new_game_btn'>
-                  New Game
-                </button>
-              </div>
-            </div>
-            <div className='flex3 flex flex_center'>
+        </div>
+        <div className='dialog__row dialog__main dialog__beginner'>
+          <div className='flex2'>
+            <div>
               <label>
                 <input
-                  type='checkbox'
-                  className='dialog__checkbox'
-                  name='marks'
+                  type='radio'
+                  className='dialog__radio'
+                  name='choice'
+                  value={GameType.Beginner}
+                  checked={boardData.gameType === GameType.Beginner}
+                  onChange={onGameTypeChange}
                 />{' '}
-                Marks (?)
+                Beginner
               </label>
             </div>
           </div>
+          <div className='flex1'>
+            <span>9</span>
+          </div>
+          <div className='flex1'>
+            <span>9</span>
+          </div>
+          <div className='flex1'>
+            <span>10</span>
+          </div>
         </div>
-      </form>
+        <div className='dialog__row dialog__main dialog__intermediate'>
+          <div className='flex2'>
+            <div>
+              <label>
+                <input
+                  type='radio'
+                  className='dialog__radio'
+                  name='choice'
+                  value={GameType.Intermediate}
+                  checked={boardData.gameType === GameType.Intermediate}
+                  onChange={onGameTypeChange}
+                />{' '}
+                Intermediate
+              </label>
+            </div>
+          </div>
+          <div className='flex1'>
+            <span>16</span>
+          </div>
+          <div className='flex1'>
+            <span>16</span>
+          </div>
+          <div className='flex1'>
+            <span>40</span>
+          </div>
+        </div>
+        <div className='dialog__row dialog__main dialog__expert'>
+          <div className='flex2'>
+            <div>
+              <label>
+                <input
+                  type='radio'
+                  className='dialog__radio'
+                  name='choice'
+                  value={GameType.Expert}
+                  checked={boardData.gameType === GameType.Expert}
+                  onChange={onGameTypeChange}
+                />{' '}
+                Expert
+              </label>
+            </div>
+          </div>
+          <div className='flex1'>
+            <span>16</span>
+          </div>
+          <div className='flex1'>
+            <span>30</span>
+          </div>
+          <div className='flex1'>
+            <span>99</span>
+          </div>
+        </div>
+        <div className='dialog__row dialog__main dialog__custom'>
+          <div className='flex2'>
+            <div>
+              <label>
+                <input
+                  type='radio'
+                  className='dialog__radio'
+                  name='choice'
+                  value={GameType.Custom}
+                  checked={boardData.gameType === GameType.Custom}
+                  onChange={onGameTypeChange}
+                />{' '}
+                Custom
+              </label>
+            </div>
+          </div>
+          <div className='flex1'>
+            <input
+              type='number'
+              inputMode='numeric'
+              min={'5'}
+              max={'50'}
+              className='dialog__custom_input'
+              id='customHeight'
+              defaultValue={'20'}
+            />
+          </div>
+          <div className='flex1'>
+            <input
+              type='number'
+              inputMode='numeric'
+              min={'5'}
+              max={'50'}
+              className='dialog__custom_input'
+              id='customWidth'
+              defaultValue={'30'}
+            />
+          </div>
+          <div className='flex1'>
+            <input
+              type='number'
+              inputMode='numeric'
+              min={'5'}
+              max={'200'}
+              className='dialog__custom_input'
+              id='customMines'
+              defaultValue={'145'}
+            />
+          </div>
+        </div>
+        <div className='dialog__row dialog__main dialog__footer'>
+          <div className='flex2'>
+            <div className='dialog__new_game'>
+              <button
+                type='submit'
+                className='dialog__new_game_btn'
+                onClick={() => closeModal({ ...boardData })}
+              >
+                New Game
+              </button>
+            </div>
+          </div>
+          <div className='flex3 flex flex_center'>
+            <label>
+              <input
+                type='checkbox'
+                className='dialog__checkbox'
+                name='marks'
+                onChange={() =>
+                  setBoardData((prev) => ({ ...prev, marks: !prev.marks }))
+                }
+              />{' '}
+              Marks (?)
+            </label>
+          </div>
+        </div>
+      </div>
     </Modal>
   )
 }
