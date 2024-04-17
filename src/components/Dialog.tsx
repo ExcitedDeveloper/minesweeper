@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 
@@ -36,9 +36,16 @@ const customStyles = {
   },
 }
 
-const _gameData = {
+type GameData = {
+  height: number
+  width: number
+  mines: number
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _gameData: { [key in GameType]: GameData } = {
   [GameType.Beginner]: {
-    height: 9,
+    height: -9,
     width: 9,
     mines: 10,
   },
@@ -52,6 +59,11 @@ const _gameData = {
     width: 30,
     mines: 99,
   },
+  [GameType.Custom]: {
+    height: 9,
+    width: 9,
+    mines: 10,
+  },
 }
 
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
@@ -60,10 +72,16 @@ Modal.setAppElement('#root')
 const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [boardData, setBoardData] = useState<BoardData>(initBoardData)
 
+  useEffect(() => {
+    console.log(`boardData`, boardData)
+  }, [boardData])
+
   const onGameTypeChange = (e: ChangeEvent) => {
+    const typeOfGame = (e.target as HTMLInputElement).value as GameType
     setBoardData((prev) => ({
       ...prev,
-      ..._gameData[GameType[(e.target as HTMLInputElement).value]],
+      ..._gameData[typeOfGame],
+      gameType: typeOfGame,
     }))
   }
 
