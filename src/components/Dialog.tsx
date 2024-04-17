@@ -85,6 +85,25 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     }))
   }
 
+  const onCustomGameTypeChange = () => {
+    const height = Number(
+      (document.getElementById('customHeight') as HTMLInputElement)?.value
+    )
+    const width = Number(
+      (document.getElementById('customWidth') as HTMLInputElement)?.value
+    )
+    const mines = Number(
+      (document.getElementById('customMines') as HTMLInputElement)?.value
+    )
+    setBoardData((prev) => ({
+      height,
+      width,
+      mines,
+      gameType: GameType.Custom,
+      marks: prev.marks,
+    }))
+  }
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -196,7 +215,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
                   name='choice'
                   value={GameType.Custom}
                   checked={boardData.gameType === GameType.Custom}
-                  onChange={onGameTypeChange}
+                  onChange={onCustomGameTypeChange}
                 />{' '}
                 Custom
               </label>
