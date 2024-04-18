@@ -255,7 +255,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
             />
           </div>
         </div>
-        <div className='dialog__row dialog__main dialog__footer'>
+        <div className='dialog__footer dialog__row dialog__main'>
           <div className='flex2'>
             <div className='dialog__new_game'>
               <button
