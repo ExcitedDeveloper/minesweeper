@@ -1,22 +1,7 @@
 import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
-
-// eslint-disable-next-line react-refresh/only-export-components
-export enum GameType {
-  Beginner = 'beginner',
-  Intermediate = 'intermediate',
-  Expert = 'expert',
-  Custom = 'custom',
-}
-
-export type BoardData = {
-  gameType: GameType
-  height: number
-  width: number
-  mines: number
-  marks: boolean
-}
+import { GameType, BoardData } from './Game'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -45,7 +30,7 @@ type GameData = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _gameData: { [key in GameType]: GameData } = {
   [GameType.Beginner]: {
-    height: -9,
+    height: 9,
     width: 9,
     mines: 10,
   },
