@@ -4,7 +4,8 @@ import { useState } from 'react'
 import './Header.css'
 import smileyFace from '../assets/happiness.png'
 // import sadFace from '../assets/sad.png'
-import Dialog, { BoardData, GameType } from './Dialog'
+import Dialog from './Dialog'
+import { BoardData, GameType } from '../types/Game'
 
 const Header = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -16,7 +17,7 @@ const Header = () => {
     marks: false,
   })
 
-  const closeModal = (boardData?: BoardData) => {
+  const closeModal = () => {
     setModalIsOpen(false)
     boardData && setCurrBoardData(boardData)
     console.log(`boardData`, boardData)

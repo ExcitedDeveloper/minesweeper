@@ -1,10 +1,15 @@
 import { ReactNode, createContext, useState } from 'react'
-import { GameType } from './components/Game'
+import { GameType } from './types/Game'
 
-export const GameContext = createContext<
-  | { gameType: any[]; height: any[]; width: any[]; mines: any[]; marks: any[] }
-  | undefined
->(undefined)
+export type GameContextType = {
+  gameType: [GameType, React.Dispatch<React.SetStateAction<GameType>>]
+  height: [number, React.Dispatch<React.SetStateAction<number>>]
+  width: [number, React.Dispatch<React.SetStateAction<number>>]
+  mines: [number, React.Dispatch<React.SetStateAction<number>>]
+  marks: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+}
+
+export const GameContext = createContext<GameContextType | null>(null)
 
 type GameProviderProps = { children: ReactNode }
 
@@ -15,7 +20,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   const [mines, setMines] = useState(10)
   const [marks, setMarks] = useState(false)
 
-  const store = {
+  const store: GameContextType = {
     gameType: [gameType, setGameType],
     height: [height, setHeight],
     width: [width, setWidth],
