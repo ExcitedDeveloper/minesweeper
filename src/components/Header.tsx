@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import { useState } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './Header.css'
 import smileyFace from '../assets/happiness.png'
 // import sadFace from '../assets/sad.png'
 import Dialog from './Dialog'
 import { BoardData, GameType } from '../types/Game'
+import { GameContext } from '../GameContext'
 
 const Header = () => {
+  const ctx = useContext(GameContext)
+
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [currBoardData, setCurrBoardData] = useState<BoardData>({
     height: 9,
@@ -17,7 +20,7 @@ const Header = () => {
     marks: false,
   })
 
-  const closeModal = () => {
+  const closeModal = (boardData: BoardData) => {
     setModalIsOpen(false)
     boardData && setCurrBoardData(boardData)
     console.log(`boardData`, boardData)
@@ -26,6 +29,19 @@ const Header = () => {
   const handleButtonClick = () => {
     setModalIsOpen(true)
   }
+
+  useEffect(() => {
+    const [, setHeight] = ctx.height
+    const [, setWidth] = ctx.width
+    const [, setMines] = ctx.mines
+    const [, setMarks] = ctx.marks
+
+    setHeight(currBoardData.height)
+    setWidth(currBoardData.width)
+    setMines(currBoardData.mines)
+    setMarks(currBoardData.marks)
+  }, [currBoardData, ctx])
+
   return (
     <>
       <div className='header__container'>

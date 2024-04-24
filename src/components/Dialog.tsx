@@ -2,7 +2,6 @@ import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 import { GameType, BoardData } from '../types/Game'
-import { GameContext } from '../GameContext'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -57,10 +56,6 @@ Modal.setAppElement('#root')
 
 const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [boardData, setBoardData] = useState<BoardData>(initBoardData)
-
-  useEffect(() => {
-    console.log(`boardData`, boardData)
-  }, [boardData])
 
   const onGameTypeChange = (e: ChangeEvent) => {
     const typeOfGame = (e.target as HTMLInputElement)
