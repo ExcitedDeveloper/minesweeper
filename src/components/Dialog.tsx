@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 import { GameType, BoardData } from '../types/Game'
@@ -55,35 +55,68 @@ const _gameData: { [key in GameType]: GameData } = {
 Modal.setAppElement('#root')
 
 const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
-  const [boardData, setBoardData] = useState<BoardData>(initBoardData)
+  const [gameType, setGameType] = useState<GameType>(GameType.Beginner)
+
+  useEffect(() => {
+    console.log(`initBoardData`, initBoardData)
+    setGameType(initBoardData.gameType)
+
+    if (initBoardData.gameType === GameType.Custom) {
+      console.log(`setting custom initial data`)
+      const customHeight = document.getElementById(
+        'customHeight'
+      ) as HTMLInputElement
+      if (customHeight) {
+        customHeight.value = initBoardData.height.toString()
+      }
+
+      const customWidth = document.getElementById(
+        'customWidth'
+      ) as HTMLInputElement
+      if (customWidth) {
+        customWidth.value = initBoardData.width.toString()
+      }
+
+      const customMines = document.getElementById(
+        'customMines'
+      ) as HTMLInputElement
+      if (customMines) {
+        customMines.value = initBoardData.mines.toString()
+      }
+    }
+  }, [initBoardData])
 
   const onGameTypeChange = (e: ChangeEvent) => {
     const typeOfGame = (e.target as HTMLInputElement)
       .value as unknown as GameType
-    setBoardData((prev) => ({
-      ...prev,
-      ..._gameData[typeOfGame],
-      gameType: typeOfGame,
-    }))
+    setGameType(typeOfGame)
   }
 
-  const onCustomGameTypeChange = () => {
-    const height = Number(
-      (document.getElementById('customHeight') as HTMLInputElement)?.value
+  const getBoardData = (): BoardData => {
+    const marks = Boolean(
+      (document.getElementById('marks') as HTMLInputElement)?.value
     )
-    const width = Number(
-      (document.getElementById('customWidth') as HTMLInputElement)?.value
-    )
-    const mines = Number(
-      (document.getElementById('customMines') as HTMLInputElement)?.value
-    )
-    setBoardData((prev) => ({
-      height,
-      width,
-      mines,
-      gameType: GameType.Custom,
-      marks: prev.marks,
-    }))
+
+    if (gameType === GameType.Custom) {
+      const height = Number(
+        (document.getElementById('customHeight') as HTMLInputElement)?.value
+      )
+      const width = Number(
+        (document.getElementById('customWidth') as HTMLInputElement)?.value
+      )
+      const mines = Number(
+        (document.getElementById('customMines') as HTMLInputElement)?.value
+      )
+      return {
+        height,
+        width,
+        mines,
+        gameType: GameType.Custom,
+        marks,
+      }
+    } else {
+      return { gameType, marks, ..._gameData[gameType] }
+    }
   }
 
   return (
@@ -118,7 +151,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
                   className='dialog__radio'
                   name='choice'
                   value={GameType.Beginner}
-                  checked={boardData.gameType === GameType.Beginner}
+                  checked={gameType === GameType.Beginner}
                   onChange={onGameTypeChange}
                 />{' '}
                 Beginner
@@ -144,7 +177,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
                   className='dialog__radio'
                   name='choice'
                   value={GameType.Intermediate}
-                  checked={boardData.gameType === GameType.Intermediate}
+                  checked={gameType === GameType.Intermediate}
                   onChange={onGameTypeChange}
                 />{' '}
                 Intermediate
@@ -170,7 +203,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
                   className='dialog__radio'
                   name='choice'
                   value={GameType.Expert}
-                  checked={boardData.gameType === GameType.Expert}
+                  checked={gameType === GameType.Expert}
                   onChange={onGameTypeChange}
                 />{' '}
                 Expert
@@ -196,8 +229,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
                   className='dialog__radio'
                   name='choice'
                   value={GameType.Custom}
-                  checked={boardData.gameType === GameType.Custom}
-                  onChange={onCustomGameTypeChange}
+                  checked={gameType === GameType.Custom}
+                  onChange={onGameTypeChange}
                 />{' '}
                 Custom
               </label>
@@ -243,7 +276,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
               <button
                 type='submit'
                 className='dialog__new_game_btn'
-                onClick={() => closeModal({ ...boardData })}
+                onClick={() => closeModal({ ...getBoardData() })}
               >
                 New Game
               </button>
@@ -252,12 +285,10 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
           <div className='flex3 flex flex_center'>
             <label>
               <input
+                id='marks'
                 type='checkbox'
                 className='dialog__checkbox'
                 name='marks'
-                onChange={() =>
-                  setBoardData((prev) => ({ ...prev, marks: !prev.marks }))
-                }
               />{' '}
               Marks (?)
             </label>
