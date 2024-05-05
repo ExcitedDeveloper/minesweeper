@@ -23,7 +23,6 @@ const Header = () => {
   const closeModal = (boardData: BoardData) => {
     setModalIsOpen(false)
     boardData && setCurrBoardData(boardData)
-    console.log(`boardData`, boardData)
   }
 
   const handleButtonClick = () => {

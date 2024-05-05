@@ -27,6 +27,12 @@ type GameData = {
   mines: number
 }
 
+const defaultCustomValues = {
+  height: '20',
+  width: '30',
+  mines: '145',
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _gameData: { [key in GameType]: GameData } = {
   [GameType.Beginner]: {
@@ -56,33 +62,19 @@ Modal.setAppElement('#root')
 
 const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [gameType, setGameType] = useState<GameType>(GameType.Beginner)
+  const [customHeight, setCustomHeight] = useState(defaultCustomValues.height)
+  const [customWidth, setCustomWidth] = useState(defaultCustomValues.width)
+  const [customMines, setCustomMines] = useState(defaultCustomValues.mines)
+  const [marks, setMarks] = useState(false)
 
   useEffect(() => {
-    console.log(`initBoardData`, initBoardData)
     setGameType(initBoardData.gameType)
+    setMarks(initBoardData.marks)
 
     if (initBoardData.gameType === GameType.Custom) {
-      console.log(`setting custom initial data`)
-      const customHeight = document.getElementById(
-        'customHeight'
-      ) as HTMLInputElement
-      if (customHeight) {
-        customHeight.value = initBoardData.height.toString()
-      }
-
-      const customWidth = document.getElementById(
-        'customWidth'
-      ) as HTMLInputElement
-      if (customWidth) {
-        customWidth.value = initBoardData.width.toString()
-      }
-
-      const customMines = document.getElementById(
-        'customMines'
-      ) as HTMLInputElement
-      if (customMines) {
-        customMines.value = initBoardData.mines.toString()
-      }
+      setCustomHeight(initBoardData.height.toString())
+      setCustomWidth(initBoardData.width.toString())
+      setCustomMines(initBoardData.mines.toString())
     }
   }, [initBoardData])
 
@@ -93,24 +85,11 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   }
 
   const getBoardData = (): BoardData => {
-    const marks = Boolean(
-      (document.getElementById('marks') as HTMLInputElement)?.value
-    )
-
     if (gameType === GameType.Custom) {
-      const height = Number(
-        (document.getElementById('customHeight') as HTMLInputElement)?.value
-      )
-      const width = Number(
-        (document.getElementById('customWidth') as HTMLInputElement)?.value
-      )
-      const mines = Number(
-        (document.getElementById('customMines') as HTMLInputElement)?.value
-      )
       return {
-        height,
-        width,
-        mines,
+        height: Number(customHeight),
+        width: Number(customWidth),
+        mines: Number(customMines),
         gameType: GameType.Custom,
         marks,
       }
@@ -244,7 +223,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
               max={'50'}
               className='dialog__custom_input'
               id='customHeight'
-              defaultValue={'20'}
+              value={customHeight}
+              onChange={(e) => setCustomHeight(e.target.value)}
             />
           </div>
           <div className='flex1'>
@@ -255,7 +235,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
               max={'50'}
               className='dialog__custom_input'
               id='customWidth'
-              defaultValue={'30'}
+              value={customWidth}
+              onChange={(e) => setCustomWidth(e.target.value)}
             />
           </div>
           <div className='flex1'>
@@ -266,7 +247,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
               max={'200'}
               className='dialog__custom_input'
               id='customMines'
-              defaultValue={'145'}
+              value={customMines}
+              onChange={(e) => setCustomMines(e.target.value)}
             />
           </div>
         </div>
@@ -289,6 +271,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
                 type='checkbox'
                 className='dialog__checkbox'
                 name='marks'
+                checked={marks}
+                onChange={(e) => setMarks(e.target.checked)}
               />{' '}
               Marks (?)
             </label>
