@@ -4,8 +4,7 @@
   position: relative;
 }
 
-.header__smiley {
-  padding: 2px;
+.header__face {
   width: 39px;
   height: 39px;
   margin: 0;
@@ -13,10 +12,30 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  border: 4px outset #ececec;
-  background-color: var(--color-primary);
+  border: none;
+  background-image: url('../assets/sprite150.gif');
 }
 
-.header__smiley:hover {
+.header__face:hover {
   cursor: pointer;
+}
+
+.facesmile {
+  background-position: 0 -83px;
+}
+
+.facedead {
+  background-position: -117px -83px;
+}
+
+.facewin {
+  background-position: -156px -83px;
+}
+
+.game__container .facepressed {
+  background-position: -39px -83px;
+}
+
+.game__container .faceooh {
+  background-position: -78px -83px;
 }

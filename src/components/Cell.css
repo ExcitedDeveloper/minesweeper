@@ -1,5 +1,72 @@
 .cell__container {
   width: 24px;
   height: 24px;
-  border: 4px outset #ececec;
+  /* border: 4px outset #ececec; */
+}
+
+.square {
+  background-color: silver;
+  background-image: url('../assets/sprite150.gif');
+  width: 24px;
+  height: 24px;
+}
+
+.question {
+  background-position: -120px -59px;
+}
+
+.questionpressed {
+  background-position: -144px -59px;
+}
+
+.open0 {
+  background-position: 0 -35px;
+}
+
+.open1 {
+  background-position: -24px -35px;
+}
+
+.open2 {
+  background-position: -48px -35px;
+}
+
+.open3 {
+  background-position: -72px -35px;
+}
+
+.open4 {
+  background-position: -96px -35px;
+}
+
+.open5 {
+  background-position: -120px -35px;
+}
+
+.open6 {
+  background-position: -144px -35px;
+}
+
+.open7 {
+  background-position: -168px -35px;
+}
+
+.open8 {
+  background-position: -192px -35px;
+}
+
+.bombflagged {
+  background-position: -24px -59px;
+}
+
+.bombdeath {
+  background-position: -48px -59px;
+}
+
+.bombrevealed {
+  background-position: -96px -59px;
+}
+
+.bombmisflagged {
+  background-position: -72px -59px;
 }

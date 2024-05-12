@@ -44,9 +44,10 @@ const Header = () => {
   return (
     <>
       <div className='header__container'>
-        <button className='header__smiley' onClick={handleButtonClick}>
-          <img src={smileyFace} alt='Happy' />
-        </button>
+        <button
+          className='header__face facedead'
+          onClick={handleButtonClick}
+        ></button>
       </div>
       <Dialog
         modalIsOpen={modalIsOpen}
