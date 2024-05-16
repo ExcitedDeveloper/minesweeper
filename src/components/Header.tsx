@@ -2,11 +2,11 @@
 // @ts-nocheck
 import { useState, useEffect, useContext } from 'react'
 import './Header.css'
-import smileyFace from '../assets/happiness.png'
-// import sadFace from '../assets/sad.png'
 import Dialog from './Dialog'
 import { BoardData, GameType } from '../types/Game'
 import { GameContext } from '../GameContext'
+import Mines from './Mines'
+import Time from './Time'
 
 const Header = () => {
   const ctx = useContext(GameContext)
@@ -44,10 +44,12 @@ const Header = () => {
   return (
     <>
       <div className='header__container'>
+        <Mines />
         <button
           className='header__face facedead'
           onClick={handleButtonClick}
         ></button>
+        <Time />
       </div>
       <Dialog
         modalIsOpen={modalIsOpen}
