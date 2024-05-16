@@ -8,4 +8,17 @@
 
   top: 50%;
   transform: translateY(-50%);
+  background-image: url('../assets/sprite150.gif');
+}
+
+.mines__hundreds {
+  background-position: 0 0;
+}
+
+.mines__tens {
+  background-position: -20px 0;
+}
+
+.mines__ones {
+  background-position: -40px 0;
 }

@@ -1,12 +1,17 @@
 .cell__container {
   width: 24px;
   height: 24px;
-  /* border: 4px outset #ececec; */
 }
 
 .square {
   background-color: silver;
   background-image: url('../assets/sprite150.gif');
+  width: 24px;
+  height: 24px;
+}
+
+.unflipped {
+  border: 4px outset #ececec;
   width: 24px;
   height: 24px;
 }
