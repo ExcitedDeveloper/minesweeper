@@ -10,7 +10,6 @@ function Mines() {
 
   useEffect(() => {
     if (!ctx) {
-      console.log(`ctx is empty`)
       setOnes(0)
       setTens(0)
       setHundreds(0)
@@ -20,7 +19,6 @@ function Mines() {
     const [remainingMines] = ctx.remainingMines
 
     if (!remainingMines) {
-      console.log(`remainingMines is empty`)
       setOnes(0)
       setTens(0)
       setHundreds(0)
@@ -30,33 +28,23 @@ function Mines() {
     const str = remainingMines.toString()
     const nums = str.split('')
     if (remainingMines < 10 && nums.length > 0) {
-      console.log(`remainingMines < 10`)
       setOnes(remainingMines)
       setTens(0)
       setHundreds(0)
     } else if (remainingMines < 100 && nums.length > 1) {
-      console.log(`remainingMines < 100 nums`, nums)
       setOnes(Number(nums[1]))
       setTens(Number(nums[0]))
       setHundreds(0)
     } else if (nums.length > 2) {
-      console.log(`nums.length > 2`)
       setOnes(Number(nums[2]))
       setTens(Number(nums[1]))
       setHundreds(Number(nums[0]))
     } else {
-      console.log(`ERROR`)
       setOnes(0)
       setTens(0)
       setHundreds(0)
     }
   }, [ctx, ctx?.remainingMines])
-
-  useEffect(() => {
-    console.log(`ones`, ones)
-    console.log(`tens`, tens)
-    console.log(`hundreds`, hundreds)
-  }, [ones, tens, hundreds])
 
   return (
     <div className='mines__container'>

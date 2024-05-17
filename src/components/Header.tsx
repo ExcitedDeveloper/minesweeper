@@ -7,6 +7,7 @@ import { BoardData, GameType } from '../types/Game'
 import { GameContext } from '../GameContext'
 import Mines from './Mines'
 import Time from './Time'
+import { MIN_CUSTOM_MINES, MAX_CUSTOM_MINES } from '../constants'
 
 const Header = () => {
   const ctx = useContext(GameContext)
@@ -38,7 +39,12 @@ const Header = () => {
 
     setHeight(currBoardData.height)
     setWidth(currBoardData.width)
-    setMines(currBoardData.mines)
+    setMines((prev) => {
+      return currBoardData.mines < MIN_CUSTOM_MINES ||
+        currBoardData.mines > MAX_CUSTOM_MINES
+        ? prev
+        : currBoardData.mines
+    })
     setMarks(currBoardData.marks)
   }, [currBoardData, ctx])
 

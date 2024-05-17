@@ -2,6 +2,7 @@ import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 import { GameType, BoardData } from '../types/Game'
+import { MIN_CUSTOM_MINES, MAX_CUSTOM_MINES } from '../constants'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -84,12 +85,24 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     setGameType(typeOfGame)
   }
 
+  const validateCustomMines = () => {
+    const numMines = Number(customMines)
+    if (numMines < MIN_CUSTOM_MINES || numMines > MAX_CUSTOM_MINES) {
+      setCustomMines(MIN_CUSTOM_MINES.toString())
+      return MIN_CUSTOM_MINES
+    }
+
+    return Number(customMines)
+  }
+
   const getBoardData = (): BoardData => {
+    const validatedMines = validateCustomMines()
+
     if (gameType === GameType.Custom) {
       return {
         height: Number(customHeight),
         width: Number(customWidth),
-        mines: Number(customMines),
+        mines: validatedMines,
         gameType: GameType.Custom,
         marks,
       }
@@ -243,8 +256,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
             <input
               type='number'
               inputMode='numeric'
-              min={'5'}
-              max={'200'}
+              min={MIN_CUSTOM_MINES}
+              max={MAX_CUSTOM_MINES}
               className='dialog__custom_input'
               id='customMines'
               value={customMines}
