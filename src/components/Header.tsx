@@ -18,6 +18,7 @@ const Header = () => {
     mines: 10,
     gameType: GameType.Beginner,
     marks: false,
+    remainingMines: 10,
   })
 
   const closeModal = (boardData: BoardData) => {
@@ -40,6 +41,12 @@ const Header = () => {
     setMines(currBoardData.mines)
     setMarks(currBoardData.marks)
   }, [currBoardData, ctx])
+
+  useEffect(() => {
+    const [mines] = ctx.mines
+    const [, setRemainingMines] = ctx.remainingMines
+    setRemainingMines(mines)
+  }, [ctx.mines, ctx.remainingMines])
 
   return (
     <>

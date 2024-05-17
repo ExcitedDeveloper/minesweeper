@@ -7,6 +7,7 @@ export type GameContextType = {
   width: [number, React.Dispatch<React.SetStateAction<number>>]
   mines: [number, React.Dispatch<React.SetStateAction<number>>]
   marks: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+  remainingMines: [number, React.Dispatch<React.SetStateAction<number>>]
 }
 
 export const GameContext = createContext<GameContextType | null>(null)
@@ -19,6 +20,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   const [width, setWidth] = useState(9)
   const [mines, setMines] = useState(10)
   const [marks, setMarks] = useState(false)
+  const [remainingMines, setRemainingMines] = useState(10)
 
   const store: GameContextType = {
     gameType: [gameType, setGameType],
@@ -26,6 +28,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
     width: [width, setWidth],
     mines: [mines, setMines],
     marks: [marks, setMarks],
+    remainingMines: [remainingMines, setRemainingMines],
   }
 
   return <GameContext.Provider value={store}>{children}</GameContext.Provider>
