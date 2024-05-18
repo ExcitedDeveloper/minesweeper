@@ -2,7 +2,14 @@ import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 import { GameType, BoardData } from '../types/Game'
-import { MIN_CUSTOM_MINES, MAX_CUSTOM_MINES } from '../constants'
+import {
+  MIN_CUSTOM_MINES,
+  MAX_CUSTOM_MINES,
+  MIN_CUSTOM_HEIGHT,
+  MAX_CUSTOM_HEIGHT,
+  MIN_CUSTOM_WIDTH,
+  MAX_CUSTOM_WIDTH,
+} from '../constants'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -87,6 +94,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
 
   const validateCustomMines = () => {
     const numMines = Number(customMines)
+
     if (numMines < MIN_CUSTOM_MINES || numMines > MAX_CUSTOM_MINES) {
       setCustomMines(MIN_CUSTOM_MINES.toString())
       return MIN_CUSTOM_MINES
@@ -95,13 +103,37 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     return Number(customMines)
   }
 
+  const validateCustomWidth = () => {
+    const numWidth = Number(customWidth)
+
+    if (numWidth < MIN_CUSTOM_WIDTH || numWidth > MAX_CUSTOM_WIDTH) {
+      setCustomWidth(MIN_CUSTOM_WIDTH.toString())
+      return MIN_CUSTOM_WIDTH
+    }
+
+    return Number(customWidth)
+  }
+
+  const validateCustomHeight = () => {
+    const numHeight = Number(customHeight)
+
+    if (numHeight < MIN_CUSTOM_HEIGHT || numHeight > MAX_CUSTOM_HEIGHT) {
+      setCustomHeight(MIN_CUSTOM_HEIGHT.toString())
+      return MIN_CUSTOM_HEIGHT
+    }
+
+    return Number(customHeight)
+  }
+
   const getBoardData = (): BoardData => {
     const validatedMines = validateCustomMines()
+    const validatedHeight = validateCustomHeight()
+    const validatedWidth = validateCustomWidth()
 
     if (gameType === GameType.Custom) {
       return {
-        height: Number(customHeight),
-        width: Number(customWidth),
+        height: validatedHeight,
+        width: validatedWidth,
         mines: validatedMines,
         gameType: GameType.Custom,
         marks,
@@ -232,8 +264,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
             <input
               type='number'
               inputMode='numeric'
-              min={'5'}
-              max={'50'}
+              min={MIN_CUSTOM_HEIGHT}
+              max={MAX_CUSTOM_HEIGHT}
               className='dialog__custom_input'
               id='customHeight'
               value={customHeight}
@@ -244,8 +276,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
             <input
               type='number'
               inputMode='numeric'
-              min={'5'}
-              max={'50'}
+              min={MIN_CUSTOM_WIDTH}
+              max={MAX_CUSTOM_WIDTH}
               className='dialog__custom_input'
               id='customWidth'
               value={customWidth}
