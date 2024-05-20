@@ -1,3 +1,4 @@
+/* TODO : Combine Time and Mines components */
 .time__container {
   background-color: black;
   width: 60px;
@@ -8,4 +9,70 @@
 
   top: 50%;
   transform: translateY(-50%);
+}
+
+.time__container {
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: black;
+  width: 60px;
+  height: 35px;
+
+  position: absolute;
+  right: 10px;
+
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.number {
+  width: 20px;
+  height: 35px;
+  background-image: url('../assets/sprite150.gif');
+}
+
+.number_0 {
+  background-position: 0 0;
+}
+
+.number_1 {
+  background-position: -20px 0;
+}
+
+.number_2 {
+  background-position: -39px 0;
+}
+
+.number_3 {
+  background-position: -59px 0;
+}
+
+.number_4 {
+  background-position: -78px 0;
+}
+
+.number_5 {
+  background-position: -98px 0;
+}
+
+.number_6 {
+  background-position: -117px 0;
+}
+
+.number_7 {
+  background-position: -137px 0;
+}
+
+.number_8 {
+  background-position: -156px 0;
+}
+
+.number_9 {
+  background-position: -176px 0;
+}
+
+.number_dash {
+  width: 20px;
+  height: 35px;
+  background-position: -194px 0;
 }

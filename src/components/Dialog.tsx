@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect } from 'react'
+import { ChangeEvent, useState, useEffect, useContext } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
 import { GameType, BoardData } from '../types/Game'
@@ -9,7 +9,9 @@ import {
   MAX_CUSTOM_HEIGHT,
   MIN_CUSTOM_WIDTH,
   MAX_CUSTOM_WIDTH,
+  MIN_TIME,
 } from '../constants'
+import { GameContext } from '../GameContext'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -74,6 +76,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [customWidth, setCustomWidth] = useState(defaultCustomValues.width)
   const [customMines, setCustomMines] = useState(defaultCustomValues.mines)
   const [marks, setMarks] = useState(false)
+  const ctx = useContext(GameContext)
 
   useEffect(() => {
     setGameType(initBoardData.gameType)
@@ -141,6 +144,19 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     } else {
       return { gameType, marks, ..._gameData[gameType] }
     }
+  }
+
+  const handleNewGame = () => {
+    closeModal({ ...getBoardData() })
+
+    if (!ctx) return
+
+    const [, setIsTimerRunning] = ctx.isTimerRunning
+    const [, setTime] = ctx.time
+
+    console.log(`new game`)
+    setTime(MIN_TIME)
+    setIsTimerRunning(true)
   }
 
   return (
@@ -303,7 +319,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
               <button
                 type='submit'
                 className='dialog__new_game_btn'
-                onClick={() => closeModal({ ...getBoardData() })}
+                onClick={handleNewGame}
               >
                 New Game
               </button>

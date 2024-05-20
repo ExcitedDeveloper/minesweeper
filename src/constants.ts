@@ -4,3 +4,6 @@ export const MIN_CUSTOM_HEIGHT = 9
 export const MAX_CUSTOM_HEIGHT = 50
 export const MIN_CUSTOM_WIDTH = 9
 export const MAX_CUSTOM_WIDTH = 50
+export const MIN_TIME = 0
+export const MAX_TIME = 9
+export const TICK = 1000 // TODO : Delete?
