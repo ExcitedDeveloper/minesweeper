@@ -43,6 +43,7 @@ const defaultCustomValues = {
   mines: '145',
 }
 
+// TODO : Create constants for these hard coded values
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _gameData: { [key in GameType]: GameData } = {
   [GameType.Beginner]: {
@@ -77,6 +78,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [customMines, setCustomMines] = useState(defaultCustomValues.mines)
   const [marks, setMarks] = useState(false)
   const ctx = useContext(GameContext)
+  const [, setIsTimerRunning] = ctx.isTimerRunning
+  const [, , setCurrentTime] = ctx.useTimer
 
   useEffect(() => {
     setGameType(initBoardData.gameType)
@@ -149,14 +152,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const handleNewGame = () => {
     closeModal({ ...getBoardData() })
 
-    if (!ctx) return
-
-    const [, setIsTimerRunning] = ctx.isTimerRunning
-    const [, setTime] = ctx.time
-
-    console.log(`new game`)
-    setTime(MIN_TIME)
     setIsTimerRunning(true)
+    setCurrentTime(MIN_TIME)
   }
 
   return (

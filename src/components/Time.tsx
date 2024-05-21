@@ -1,21 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import './Time.css'
-import useTimer from '../hooks/useTimer'
+import { GameContext } from '../GameContext'
 
 function Time() {
-  const time = useTimer()
+  const ctx = useContext(GameContext)
+  const [, setIsTimerRunning] = ctx.isTimerRunning
   const [ones, setOnes] = useState(0)
   const [tens, setTens] = useState(0)
   const [hundreds, setHundreds] = useState(0)
+  const [currentTime, timerHasStopped] = ctx.useTimer
 
   useEffect(() => {
-    const str = time.toString()
+    const str = currentTime.toString()
     const nums = str.split('')
-    if (time < 10 && nums.length > 0) {
-      setOnes(time)
+    if (currentTime < 10 && nums.length > 0) {
+      setOnes(currentTime)
       setTens(0)
       setHundreds(0)
-    } else if (time < 100 && nums.length > 1) {
+    } else if (currentTime < 100 && nums.length > 1) {
       setOnes(Number(nums[1]))
       setTens(Number(nums[0]))
       setHundreds(0)
@@ -28,7 +30,14 @@ function Time() {
       setTens(0)
       setHundreds(0)
     }
-  }, [time])
+  }, [currentTime])
+
+  // TODO : Can I just call setIsTimerRunning(!timerHasStopped)
+  useEffect(() => {
+    if (timerHasStopped) {
+      setIsTimerRunning(false)
+    }
+  }, [setIsTimerRunning, timerHasStopped])
 
   return (
     <div className='time__container'>

@@ -9,13 +9,6 @@ function Mines() {
   const [hundreds, setHundreds] = useState(0)
 
   useEffect(() => {
-    if (!ctx) {
-      setOnes(0)
-      setTens(0)
-      setHundreds(0)
-      return
-    }
-
     const [remainingMines] = ctx.remainingMines
 
     if (!remainingMines) {
@@ -44,7 +37,7 @@ function Mines() {
       setTens(0)
       setHundreds(0)
     }
-  }, [ctx, ctx?.remainingMines])
+  }, [ctx, ctx.remainingMines])
 
   return (
     <div className='mines__container'>

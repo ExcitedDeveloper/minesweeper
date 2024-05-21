@@ -9,8 +9,6 @@ const Board = () => {
   const [cells, setCells] = useState<JSX.Element[]>([])
 
   useEffect(() => {
-    if (!ctx) return
-
     const [height] = ctx.height
     const [width] = ctx.width
 
