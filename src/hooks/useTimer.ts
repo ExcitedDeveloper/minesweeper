@@ -1,7 +1,6 @@
-// TODO : Check every file for unused imports, etc.
 import { useEffect, useContext, useState } from 'react'
 import { GameContext } from '../GameContext'
-import { MAX_TIME, MIN_TIME } from '../constants'
+import { MAX_TIME, MIN_TIME, INTERVAL_TIME } from '../constants'
 
 const useTimer = (isTimerRunning: boolean) => {
   const ctx = useContext(GameContext)
@@ -27,7 +26,7 @@ const useTimer = (isTimerRunning: boolean) => {
 
           return newTime
         })
-      }, 1000) // TODO : Create const for 1000
+      }, INTERVAL_TIME)
     } else {
       setTimerHasStopped(true)
       clearInterval(interval)

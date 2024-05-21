@@ -10,6 +10,18 @@ import {
   MIN_CUSTOM_WIDTH,
   MAX_CUSTOM_WIDTH,
   MIN_TIME,
+  BEGINNER_HEIGHT,
+  BEGINNER_WIDTH,
+  BEGINNER_MINES,
+  INTERMEDIATE_HEIGHT,
+  INTERMEDIATE_WIDTH,
+  INTERMEDIATE_MINES,
+  EXPERT_HEIGHT,
+  EXPERT_WIDTH,
+  EXPERT_MINES,
+  CUSTOM_HEIGHT,
+  CUSTOM_WIDTH,
+  CUSTOM_MINES,
 } from '../constants'
 import { GameContext } from '../GameContext'
 
@@ -43,28 +55,27 @@ const defaultCustomValues = {
   mines: '145',
 }
 
-// TODO : Create constants for these hard coded values
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _gameData: { [key in GameType]: GameData } = {
   [GameType.Beginner]: {
-    height: 9,
-    width: 9,
-    mines: 10,
+    height: BEGINNER_HEIGHT,
+    width: BEGINNER_WIDTH,
+    mines: BEGINNER_MINES,
   },
   [GameType.Intermediate]: {
-    height: 16,
-    width: 16,
-    mines: 40,
+    height: INTERMEDIATE_HEIGHT,
+    width: INTERMEDIATE_WIDTH,
+    mines: INTERMEDIATE_MINES,
   },
   [GameType.Expert]: {
-    height: 16,
-    width: 30,
-    mines: 99,
+    height: EXPERT_HEIGHT,
+    width: EXPERT_WIDTH,
+    mines: EXPERT_MINES,
   },
   [GameType.Custom]: {
-    height: 9,
-    width: 9,
-    mines: 10,
+    height: CUSTOM_HEIGHT,
+    width: CUSTOM_WIDTH,
+    mines: CUSTOM_MINES,
   },
 }
 

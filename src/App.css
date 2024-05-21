@@ -1,15 +1,3 @@
-/* TODO : Delete */
-/* Common breakpoints */
-/* https://www.browserstack.com/guide/what-are-css-and-media-query-breakpoints */
-/*
-  1920×1080 (8.89%)
-  1366×768 (8.44%)
-  360×640 (7.28%)
-  414×896 (4.58%)
-  1536×864 (3.88%)
-  375×667 (3.75%)
-*/
-
 #root {
   margin: 0 auto;
   padding: 2rem;
