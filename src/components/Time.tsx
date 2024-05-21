@@ -32,11 +32,8 @@ function Time() {
     }
   }, [currentTime])
 
-  // TODO : Can I just call setIsTimerRunning(!timerHasStopped)
   useEffect(() => {
-    if (timerHasStopped) {
-      setIsTimerRunning(false)
-    }
+    setIsTimerRunning(!timerHasStopped)
   }, [setIsTimerRunning, timerHasStopped])
 
   return (
