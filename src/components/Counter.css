@@ -1,4 +1,4 @@
-.mines__container {
+.counter__container {
   display: flex;
   flex-direction: row-reverse;
   background-color: black;
@@ -6,10 +6,17 @@
   height: 35px;
 
   position: absolute;
-  left: 10px;
 
   top: 50%;
   transform: translateY(-50%);
+}
+
+.time__container {
+  right: 10px;
+}
+
+.mines__container {
+  left: 10px;
 }
 
 .number {
@@ -62,5 +69,4 @@
   width: 20px;
   height: 35px;
   background-position: -194px 0;
-  /* background-image: url('../assets/sprite150.gif'); */
 }
