@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from 'react'
-import { GameType } from './types/Game'
+import { BoardType, CellType, GameType } from './types/Game'
 import useTimer from './hooks/useTimer'
 
 export type GameContextType = {
@@ -11,6 +11,7 @@ export type GameContextType = {
   remainingMines: [number, React.Dispatch<React.SetStateAction<number>>]
   isTimerRunning: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
   useTimer: [number, boolean, React.Dispatch<React.SetStateAction<number>>]
+  board: [BoardType, React.Dispatch<React.SetStateAction<BoardType>>]
 }
 
 export const GameContext = createContext<GameContextType>({} as GameContextType)
@@ -27,6 +28,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   const [isTimerRunning, setIsTimerRunning] = useState(false)
   const { currentTime, setCurrentTime, timerHasStopped } =
     useTimer(isTimerRunning)
+  const [board, setBoard] = useState()
 
   const store: GameContextType = {
     gameType: [gameType, setGameType],

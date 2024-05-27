@@ -13,3 +13,18 @@ export type BoardData = {
   mines: number
   marks: boolean
 }
+
+export enum CellType {
+  Blank,
+  Bomb,
+  One,
+  Two,
+  Three,
+  Four,
+  Five,
+  Six,
+  Seven,
+  Eight,
+}
+
+export type BoardType = CellType[][]

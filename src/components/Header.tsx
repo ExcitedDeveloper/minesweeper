@@ -7,19 +7,25 @@ import { BoardData, GameType } from '../types/Game'
 import { GameContext } from '../GameContext'
 import Mines from './Mines'
 import Time from './Time'
-import { MIN_CUSTOM_MINES, MAX_CUSTOM_MINES } from '../constants'
+import {
+  MIN_CUSTOM_MINES,
+  MAX_CUSTOM_MINES,
+  BEGINNER_WIDTH,
+  BEGINNER_HEIGHT,
+  BEGINNER_MINES,
+} from '../constants'
 
 const Header = () => {
   const ctx = useContext(GameContext)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [currBoardData, setCurrBoardData] = useState<BoardData>({
-    height: 9,
-    width: 9,
-    mines: 10,
+    height: BEGINNER_HEIGHT,
+    width: BEGINNER_WIDTH,
+    mines: BEGINNER_MINES,
     gameType: GameType.Beginner,
     marks: false,
-    remainingMines: 10,
+    remainingMines: BEGINNER_MINES,
   })
 
   const closeModal = (boardData: BoardData) => {

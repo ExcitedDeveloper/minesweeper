@@ -24,6 +24,7 @@ import {
   CUSTOM_MINES,
 } from '../constants'
 import { GameContext } from '../GameContext'
+import { createBoard } from '../util/board'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -161,10 +162,20 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   }
 
   const handleNewGame = () => {
-    closeModal({ ...getBoardData() })
+    const boardData = getBoardData()
+
+    closeModal({ ...boardData })
 
     setIsTimerRunning(true)
     setCurrentTime(MIN_TIME)
+
+    const newBoard = createBoard(
+      boardData.width,
+      boardData.height,
+      boardData.mines
+    )
+
+    console.log(`newBoard`, newBoard)
   }
 
   return (
