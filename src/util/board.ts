@@ -29,13 +29,13 @@ const getNumOfAdjacentMines = (
   count =
     row - 1 >= 0 &&
     col - 1 >= 0 &&
-    currBoard[row - 1][col - 1] === CellType.Bomb
+    currBoard[row - 1][col - 1].type === CellType.Bomb
       ? count + 1
       : count
 
   // upper center
   count =
-    row - 1 >= 0 && currBoard[row - 1][col] === CellType.Bomb
+    row - 1 >= 0 && currBoard[row - 1][col].type === CellType.Bomb
       ? count + 1
       : count
 
@@ -43,19 +43,19 @@ const getNumOfAdjacentMines = (
   count =
     row - 1 >= 0 &&
     col + 1 < width &&
-    currBoard[row - 1][col + 1] === CellType.Bomb
+    currBoard[row - 1][col + 1].type === CellType.Bomb
       ? count + 1
       : count
 
   // left
   count =
-    col - 1 >= 0 && currBoard[row][col - 1] === CellType.Bomb
+    col - 1 >= 0 && currBoard[row][col - 1].type === CellType.Bomb
       ? count + 1
       : count
 
   // right
   count =
-    col + 1 < width && currBoard[row][col + 1] === CellType.Bomb
+    col + 1 < width && currBoard[row][col + 1].type === CellType.Bomb
       ? count + 1
       : count
 
@@ -63,13 +63,13 @@ const getNumOfAdjacentMines = (
   count =
     row + 1 < height &&
     col - 1 >= 0 &&
-    currBoard[row + 1][col - 1] === CellType.Bomb
+    currBoard[row + 1][col - 1].type === CellType.Bomb
       ? count + 1
       : count
 
   // lower center
   count =
-    row + 1 < height && currBoard[row + 1][col] === CellType.Bomb
+    row + 1 < height && currBoard[row + 1][col].type === CellType.Bomb
       ? count + 1
       : count
 
@@ -77,7 +77,7 @@ const getNumOfAdjacentMines = (
   count =
     row + 1 < height &&
     col + 1 < width &&
-    currBoard[row + 1][col + 1] === CellType.Bomb
+    currBoard[row + 1][col + 1].type === CellType.Bomb
       ? count + 1
       : count
 
@@ -91,27 +91,29 @@ export const createBoard = (
 ): BoardType => {
   // Initialize board
   const currBoard: BoardType = new Array(height)
-    .fill(CellType.Blank)
-    .map(() => new Array(width).fill(CellType.Blank))
+    .fill({ type: CellType.Blank, isFlipped: false })
+    .map(() =>
+      new Array(width).fill({ type: CellType.Blank, isFlipped: false })
+    )
 
   // Set mines
   for (let i = 0; i < mines; i++) {
     let rndWidth = randomIntFromInterval(1, width)
     let rndHeight = randomIntFromInterval(1, height)
 
-    while (currBoard[rndHeight - 1][rndWidth - 1] === CellType.Bomb) {
+    while (currBoard[rndHeight - 1][rndWidth - 1].type === CellType.Bomb) {
       rndWidth = randomIntFromInterval(1, width)
       rndHeight = randomIntFromInterval(1, height)
     }
 
-    currBoard[rndHeight - 1][rndWidth - 1] = CellType.Bomb
+    currBoard[rndHeight - 1][rndWidth - 1].type = CellType.Bomb
   }
 
   // Set the rest of the board
   for (let row = 0; row < height; row++) {
     for (let col = 0; col < width; col++) {
       // if the current cell has a bomb, continue
-      if (currBoard[row][col] === CellType.Bomb) continue
+      if (currBoard[row][col].type === CellType.Bomb) continue
 
       const bombs: number = getNumOfAdjacentMines(
         currBoard,
@@ -121,7 +123,7 @@ export const createBoard = (
         col
       )
 
-      currBoard[row][col] = cellTypeMap[bombs]
+      currBoard[row][col].type = cellTypeMap[bombs]
     }
   }
 

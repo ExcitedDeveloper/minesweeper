@@ -27,4 +27,9 @@ export enum CellType {
   Eight = '8',
 }
 
-export type BoardType = CellType[][]
+export type CellState = {
+  type: CellType
+  isFlipped: boolean
+}
+
+export type BoardType = CellState[][]

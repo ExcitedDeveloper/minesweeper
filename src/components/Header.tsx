@@ -65,7 +65,7 @@ const Header = () => {
       <div className='header__container'>
         <Mines />
         <button
-          className='header__face facedead'
+          className='header__face facesmile'
           onClick={handleButtonClick}
         ></button>
         <Time />

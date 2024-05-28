@@ -92,6 +92,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const ctx = useContext(GameContext)
   const [, setIsTimerRunning] = ctx.isTimerRunning
   const [, , setCurrentTime] = ctx.useTimer
+  const [, setBoard] = ctx.board
 
   useEffect(() => {
     setGameType(initBoardData.gameType)
@@ -174,6 +175,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
       boardData.height,
       boardData.mines
     )
+
+    setBoard(newBoard)
 
     console.log(`newBoard`, newBoard)
   }

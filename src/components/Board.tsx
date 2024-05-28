@@ -3,6 +3,9 @@ import './Board.css'
 import Cell from './Cell'
 import { GameContext } from '../GameContext'
 
+const getRow = (index: number, width: number) => Math.floor(index / width)
+const getCol = (index: number, width: number) => index % width
+
 const Board = () => {
   const ctx = useContext(GameContext)
 
@@ -17,7 +20,14 @@ const Board = () => {
     const currCells = []
 
     for (let index = 0; index < height * width; index++) {
-      currCells.push(<Cell key={index} />)
+      currCells.push(
+        <Cell
+          key={index}
+          isFlipped={false}
+          row={getRow(index, width)}
+          col={getCol(index, width)}
+        />
+      )
     }
 
     setCells(currCells)

@@ -1,19 +1,12 @@
-.cell__container {
-  width: 24px;
-  height: 24px;
-}
-
 .square {
-  background-color: silver;
   background-image: url('../assets/sprite150.gif');
   width: 24px;
   height: 24px;
 }
 
-.unflipped {
-  border: 4px outset #ececec;
-  width: 24px;
-  height: 24px;
+.blank {
+  background-position: 0 -59px;
+  cursor: pointer;
 }
 
 .question {
