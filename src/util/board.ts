@@ -4,6 +4,86 @@ const randomIntFromInterval = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+const cellTypeMap: { [key: number]: CellType } = {
+  0: CellType.Blank,
+  1: CellType.One,
+  2: CellType.Two,
+  3: CellType.Three,
+  4: CellType.Four,
+  5: CellType.Five,
+  6: CellType.Six,
+  7: CellType.Seven,
+  8: CellType.Eight,
+}
+
+const getNumOfAdjacentMines = (
+  currBoard: BoardType,
+  height: number,
+  width: number,
+  row: number,
+  col: number
+) => {
+  let count = 0
+
+  // upper left
+  count =
+    row - 1 >= 0 &&
+    col - 1 >= 0 &&
+    currBoard[row - 1][col - 1] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // upper center
+  count =
+    row - 1 >= 0 && currBoard[row - 1][col] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // upper right
+  count =
+    row - 1 >= 0 &&
+    col + 1 < width &&
+    currBoard[row - 1][col + 1] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // left
+  count =
+    col - 1 >= 0 && currBoard[row][col - 1] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // right
+  count =
+    col + 1 < width && currBoard[row][col + 1] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // lower left
+  count =
+    row + 1 < height &&
+    col - 1 >= 0 &&
+    currBoard[row + 1][col - 1] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // lower center
+  count =
+    row + 1 < height && currBoard[row + 1][col] === CellType.Bomb
+      ? count + 1
+      : count
+
+  // lower right
+  count =
+    row + 1 < height &&
+    col + 1 < width &&
+    currBoard[row + 1][col + 1] === CellType.Bomb
+      ? count + 1
+      : count
+
+  return count
+}
+
 export const createBoard = (
   width: number,
   height: number,
@@ -25,6 +105,24 @@ export const createBoard = (
     }
 
     currBoard[rndHeight - 1][rndWidth - 1] = CellType.Bomb
+  }
+
+  // Set the rest of the board
+  for (let row = 0; row < height; row++) {
+    for (let col = 0; col < width; col++) {
+      // if the current cell has a bomb, continue
+      if (currBoard[row][col] === CellType.Bomb) continue
+
+      const bombs: number = getNumOfAdjacentMines(
+        currBoard,
+        height,
+        width,
+        row,
+        col
+      )
+
+      currBoard[row][col] = cellTypeMap[bombs]
+    }
   }
 
   return currBoard

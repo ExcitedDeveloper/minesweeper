@@ -15,16 +15,16 @@ export type BoardData = {
 }
 
 export enum CellType {
-  Blank,
-  Bomb,
-  One,
-  Two,
-  Three,
-  Four,
-  Five,
-  Six,
-  Seven,
-  Eight,
+  Blank = 'K',
+  Bomb = 'B',
+  One = '1',
+  Two = '2',
+  Three = '3',
+  Four = '4',
+  Five = '5',
+  Six = '6',
+  Seven = '7',
+  Eight = '8',
 }
 
 export type BoardType = CellType[][]
