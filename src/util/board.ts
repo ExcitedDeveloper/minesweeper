@@ -91,9 +91,9 @@ export const createBoard = (
 ): BoardType => {
   // Initialize board
   const currBoard: BoardType = new Array(height)
-    .fill({ type: CellType.Blank, isFlipped: false })
+    .fill({ type: CellType.Blank, isRevealed: false })
     .map(() =>
-      new Array(width).fill({ type: CellType.Blank, isFlipped: false })
+      new Array(width).fill({ type: CellType.Blank, isRevealed: false })
     )
 
   // Set mines

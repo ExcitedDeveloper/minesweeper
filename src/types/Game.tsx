@@ -29,7 +29,7 @@ export enum CellType {
 
 export type CellState = {
   type: CellType
-  isFlipped: boolean
+  isRevealed: boolean
 }
 
 export type BoardType = CellState[][]

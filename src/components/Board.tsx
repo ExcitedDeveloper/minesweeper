@@ -7,6 +7,7 @@ const getRow = (index: number, width: number) => Math.floor(index / width)
 const getCol = (index: number, width: number) => index % width
 
 const Board = () => {
+  console.log(`Board 1`)
   const ctx = useContext(GameContext)
 
   const [cells, setCells] = useState<JSX.Element[]>([])
@@ -23,7 +24,7 @@ const Board = () => {
       currCells.push(
         <Cell
           key={index}
-          isFlipped={false}
+          isRevealed={false}
           row={getRow(index, width)}
           col={getCol(index, width)}
         />
