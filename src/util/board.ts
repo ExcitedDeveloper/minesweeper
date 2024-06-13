@@ -90,11 +90,14 @@ export const createBoard = (
   mines: number
 ): BoardType => {
   // Initialize board
-  const currBoard: BoardType = new Array(height)
-    .fill({ type: CellType.Blank, isRevealed: false })
-    .map(() =>
-      new Array(width).fill({ type: CellType.Blank, isRevealed: false })
-    )
+  const currBoard: BoardType = []
+
+  for (let row = 0; row < height; row++) {
+    currBoard[row] = []
+    for (let col = 0; col < width; col++) {
+      currBoard[row][col] = { type: CellType.Blank, isRevealed: false }
+    }
+  }
 
   // Set mines
   for (let i = 0; i < mines; i++) {
