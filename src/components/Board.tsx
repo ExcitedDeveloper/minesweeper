@@ -7,10 +7,14 @@ const getRow = (index: number, width: number) => Math.floor(index / width)
 const getCol = (index: number, width: number) => index % width
 
 const Board = () => {
-  console.log(`Board 1`)
   const ctx = useContext(GameContext)
 
   const [cells, setCells] = useState<JSX.Element[]>([])
+  const [board] = ctx.board
+
+  useEffect(() => {
+    console.log(`curr board`, board)
+  }, [board])
 
   useEffect(() => {
     const [height] = ctx.height

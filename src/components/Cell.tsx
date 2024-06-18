@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
 import { BoardType, CellType } from '../types/Game'
+import { revealMap, BLANK, BOMB_DEATH } from '../util/board'
 
 type CellProps = {
   isRevealed: boolean
@@ -9,36 +10,17 @@ type CellProps = {
   col: number
 }
 
-const BLANK = 'K'
-const BOMB_DEATH = 'D'
-
-const revealMap: { [key: string]: string } = {
-  BLANK: 'bombrevealed',
-  D: 'bombdeath',
-  K: 'open0',
-  '1': 'open1',
-  '2': 'open2',
-  '3': 'open3',
-  '4': 'open4',
-  '5': 'open5',
-  '6': 'open6',
-  '7': 'open7',
-  '8': 'open8',
-}
-
 const Cell = ({ row, col }: CellProps) => {
   const ctx = useContext(GameContext)
   const [height] = ctx.height
   const [width] = ctx.width
   const [board, setBoard] = ctx.board
-  const [revealClass, setRevealClass] = useState(revealMap[BLANK])
 
   const revealCell = (
     newBoard: BoardType,
     currRow: number,
     currCol: number
   ) => {
-    console.log(`revealCell 1`)
     // Validate currRow and currCol
     if (currRow < 0 || currRow >= height || currCol < 0 || currCol >= width)
       return
@@ -49,6 +31,7 @@ const Cell = ({ row, col }: CellProps) => {
     if (newBoard[currRow][currCol].type === CellType.Blank) {
       // Clicked on a blank.  Reveal it.
       newBoard[currRow][currCol].isRevealed = true
+      newBoard[currRow][currCol].revealClass = revealMap[BLANK]
 
       // Reveal adjacent cells
 
@@ -78,24 +61,23 @@ const Cell = ({ row, col }: CellProps) => {
     } else if (newBoard[currRow][currCol].type === CellType.Bomb) {
       // Clicked on a bomb
       newBoard[currRow][currCol].isRevealed = true
-      setRevealClass(revealMap[BOMB_DEATH])
+      newBoard[currRow][currCol].revealClass = revealMap[BOMB_DEATH]
     } else {
       // Clicked on a number
       newBoard[currRow][currCol].isRevealed = true
-      setRevealClass(revealMap[newBoard[currRow][currCol].type])
+      newBoard[currRow][currCol].revealClass =
+        revealMap[newBoard[currRow][currCol].type]
     }
   }
 
   const handleCellClick = () => {
-    console.log(`clicked row = ${row}, col = ${col}`)
-
     const newBoard = board.map((row) => row.slice())
     revealCell(newBoard, row, col)
     setBoard(newBoard)
   }
 
   return board[row][col].isRevealed ? (
-    <div className={`square ${revealClass}`}></div>
+    <div className={`square ${board[row][col].revealClass}`}></div>
   ) : (
     <div className='square blank' onClick={handleCellClick}></div>
   )

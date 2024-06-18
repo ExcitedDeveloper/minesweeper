@@ -30,6 +30,7 @@ export enum CellType {
 export type CellState = {
   type: CellType
   isRevealed: boolean
+  revealClass: string
 }
 
 export type BoardType = CellState[][]

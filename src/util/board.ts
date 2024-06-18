@@ -95,7 +95,11 @@ export const createBoard = (
   for (let row = 0; row < height; row++) {
     currBoard[row] = []
     for (let col = 0; col < width; col++) {
-      currBoard[row][col] = { type: CellType.Blank, isRevealed: false }
+      currBoard[row][col] = {
+        type: CellType.Blank,
+        isRevealed: false,
+        revealClass: revealMap[BLANK],
+      }
     }
   }
 
@@ -132,3 +136,20 @@ export const createBoard = (
 
   return currBoard
 }
+
+export const revealMap: { [key: string]: string } = {
+  BombRevealed: 'bombrevealed',
+  D: 'bombdeath',
+  K: 'open0',
+  '1': 'open1',
+  '2': 'open2',
+  '3': 'open3',
+  '4': 'open4',
+  '5': 'open5',
+  '6': 'open6',
+  '7': 'open7',
+  '8': 'open8',
+}
+
+export const BLANK = 'K'
+export const BOMB_DEATH = 'D'

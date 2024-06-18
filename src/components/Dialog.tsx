@@ -177,8 +177,6 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     )
 
     setBoard(newBoard)
-
-    console.log(`newBoard`, newBoard)
   }
 
   return (
