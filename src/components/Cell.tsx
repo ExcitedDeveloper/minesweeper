@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
 import { BoardType, CellType } from '../types/Game'
-import { revealMap, BLANK, BOMB_DEATH } from '../util/board'
+import { revealMap, BLANK, BOMB_DEATH, BOMB_FLAGGED } from '../util/board'
 
 type CellProps = {
   isRevealed: boolean
@@ -15,6 +15,7 @@ const Cell = ({ row, col }: CellProps) => {
   const [height] = ctx.height
   const [width] = ctx.width
   const [board, setBoard] = ctx.board
+  const [, setRemainingMines] = ctx.remainingMines
 
   const revealCell = (
     newBoard: BoardType,
@@ -70,16 +71,38 @@ const Cell = ({ row, col }: CellProps) => {
     }
   }
 
-  const handleCellClick = () => {
+  const handleCellClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+
     const newBoard = board.map((row) => row.slice())
+
     revealCell(newBoard, row, col)
+
     setBoard(newBoard)
+  }
+
+  const handleCellRightClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+
+    const newBoard = board.map((row) => row.slice())
+
+    newBoard[row][col].revealClass = revealMap[BOMB_FLAGGED]
+
+    newBoard[row][col].isRevealed = true
+
+    setBoard(newBoard)
+
+    setRemainingMines((prev) => prev - 1)
   }
 
   return board[row][col].isRevealed ? (
     <div className={`square ${board[row][col].revealClass}`}></div>
   ) : (
-    <div className='square blank' onClick={handleCellClick}></div>
+    <div
+      className='square blank'
+      onClick={handleCellClick}
+      onContextMenu={handleCellRightClick}
+    ></div>
   )
 }
 

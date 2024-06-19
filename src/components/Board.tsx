@@ -11,10 +11,15 @@ const Board = () => {
 
   const [cells, setCells] = useState<JSX.Element[]>([])
   const [board] = ctx.board
+  const [remainingMines] = ctx.remainingMines
 
   useEffect(() => {
     console.log(`curr board`, board)
   }, [board])
+
+  useEffect(() => {
+    console.log(`remainingMines`, remainingMines)
+  })
 
   useEffect(() => {
     const [height] = ctx.height

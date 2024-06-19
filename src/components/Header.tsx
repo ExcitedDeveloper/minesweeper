@@ -54,12 +54,6 @@ const Header = () => {
     setMarks(currBoardData.marks)
   }, [currBoardData, ctx])
 
-  useEffect(() => {
-    const [mines] = ctx.mines
-    const [, setRemainingMines] = ctx.remainingMines
-    setRemainingMines(mines)
-  }, [ctx.mines, ctx.remainingMines])
-
   return (
     <>
       <div className='header__container'>

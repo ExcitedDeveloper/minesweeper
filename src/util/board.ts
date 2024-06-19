@@ -138,6 +138,7 @@ export const createBoard = (
 }
 
 export const revealMap: { [key: string]: string } = {
+  BombFlagged: 'bombflagged',
   BombRevealed: 'bombrevealed',
   D: 'bombdeath',
   K: 'open0',
@@ -153,3 +154,5 @@ export const revealMap: { [key: string]: string } = {
 
 export const BLANK = 'K'
 export const BOMB_DEATH = 'D'
+export const BOMB_REVEALED = 'BombRevealed'
+export const BOMB_FLAGGED = 'BombFlagged'
