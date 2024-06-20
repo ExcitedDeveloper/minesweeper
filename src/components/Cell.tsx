@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
-import { BoardType, CellType } from '../types/Game'
+import { BoardType, CellType, FaceClass } from '../types/Game'
 import { revealMap, BLANK, BOMB_DEATH, BOMB_FLAGGED } from '../util/board'
 
 type CellProps = {
@@ -16,6 +16,8 @@ const Cell = ({ row, col }: CellProps) => {
   const [width] = ctx.width
   const [board, setBoard] = ctx.board
   const [, setRemainingMines] = ctx.remainingMines
+  const [isTimerRunning, setIsTimerRunning] = ctx.isTimerRunning
+  const [, setFaceClass] = ctx.faceClass
 
   const revealCell = (
     newBoard: BoardType,
@@ -74,6 +76,10 @@ const Cell = ({ row, col }: CellProps) => {
   const handleCellClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
+    if (!isTimerRunning) {
+      setIsTimerRunning(true)
+    }
+
     const newBoard = board.map((row) => row.slice())
 
     revealCell(newBoard, row, col)
@@ -82,17 +88,30 @@ const Cell = ({ row, col }: CellProps) => {
   }
 
   const handleCellRightClick = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(`right click`)
     e.preventDefault()
 
     const newBoard = board.map((row) => row.slice())
 
-    newBoard[row][col].revealClass = revealMap[BOMB_FLAGGED]
-
-    newBoard[row][col].isRevealed = true
+    if (newBoard[row][col].isRevealed) {
+      newBoard[row][col].revealClass = revealMap[BLANK]
+      newBoard[row][col].isRevealed = false
+      setRemainingMines((prev) => prev + 1)
+    } else {
+      newBoard[row][col].revealClass = revealMap[BOMB_FLAGGED]
+      newBoard[row][col].isRevealed = true
+      setRemainingMines((prev) => prev - 1)
+    }
 
     setBoard(newBoard)
+  }
 
-    setRemainingMines((prev) => prev - 1)
+  const handleOnMouseDown = () => {
+    setFaceClass(FaceClass.FaceOoh)
+  }
+
+  const handleOnMouseUp = () => {
+    setFaceClass(FaceClass.FaceSmile)
   }
 
   return board[row][col].isRevealed ? (
@@ -102,6 +121,8 @@ const Cell = ({ row, col }: CellProps) => {
       className='square blank'
       onClick={handleCellClick}
       onContextMenu={handleCellRightClick}
+      onMouseDown={handleOnMouseDown}
+      onMouseUp={handleOnMouseUp}
     ></div>
   )
 }

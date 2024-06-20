@@ -34,3 +34,11 @@ export type CellState = {
 }
 
 export type BoardType = CellState[][]
+
+export enum FaceClass {
+  FaceDead = 'facedead',
+  FaceOoh = 'faceooh',
+  FacePressed = 'facepressed',
+  FaceSmile = 'facesmile',
+  FaceWin = 'facewin',
+}

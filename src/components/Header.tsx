@@ -17,6 +17,7 @@ import {
 
 const Header = () => {
   const ctx = useContext(GameContext)
+  const [faceClass] = ctx.faceClass
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [currBoardData, setCurrBoardData] = useState<BoardData>({
@@ -59,7 +60,7 @@ const Header = () => {
       <div className='header__container'>
         <Mines />
         <button
-          className='header__face facesmile'
+          className={`header__face ${faceClass}`}
           onClick={handleButtonClick}
         ></button>
         <Time />

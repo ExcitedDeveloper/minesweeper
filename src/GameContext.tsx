@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from 'react'
-import { BoardType, GameType } from './types/Game'
+import { BoardType, GameType, FaceClass } from './types/Game'
 import useTimer from './hooks/useTimer'
 import { createBoard } from './util/board'
 import { BEGINNER_HEIGHT, BEGINNER_MINES, BEGINNER_WIDTH } from './constants'
@@ -14,6 +14,7 @@ export type GameContextType = {
   isTimerRunning: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
   useTimer: [number, boolean, React.Dispatch<React.SetStateAction<number>>]
   board: [BoardType, React.Dispatch<React.SetStateAction<BoardType>>]
+  faceClass: [string, React.Dispatch<React.SetStateAction<FaceClass>>]
 }
 
 export const GameContext = createContext<GameContextType>({} as GameContextType)
@@ -38,6 +39,8 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   )
   const [board, setBoard] = useState(defaultBoard)
 
+  const [faceClass, setFaceClass] = useState(FaceClass.FaceSmile)
+
   const store: GameContextType = {
     gameType: [gameType, setGameType],
     height: [height, setHeight],
@@ -48,6 +51,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
     isTimerRunning: [isTimerRunning, setIsTimerRunning],
     useTimer: [currentTime, timerHasStopped, setCurrentTime],
     board: [board, setBoard],
+    faceClass: [faceClass, setFaceClass],
   }
 
   return <GameContext.Provider value={store}>{children}</GameContext.Provider>

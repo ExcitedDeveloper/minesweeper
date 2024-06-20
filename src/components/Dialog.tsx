@@ -90,7 +90,6 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [customMines, setCustomMines] = useState(defaultCustomValues.mines)
   const [marks, setMarks] = useState(false)
   const ctx = useContext(GameContext)
-  const [, setIsTimerRunning] = ctx.isTimerRunning
   const [, , setCurrentTime] = ctx.useTimer
   const [, setBoard] = ctx.board
 
@@ -167,7 +166,6 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
 
     closeModal({ ...boardData })
 
-    setIsTimerRunning(true)
     setCurrentTime(MIN_TIME)
 
     const newBoard = createBoard(
