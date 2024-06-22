@@ -2,7 +2,13 @@ import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
 import { BoardType, CellType, FaceClass } from '../types/Game'
-import { revealMap, BLANK, BOMB_DEATH, BOMB_FLAGGED } from '../util/board'
+import {
+  revealMap,
+  BLANK,
+  BOMB_DEATH,
+  BOMB_FLAGGED,
+  NOT_REVEALED,
+} from '../util/board'
 
 type CellProps = {
   isRevealed: boolean
@@ -34,7 +40,7 @@ const Cell = ({ row, col }: CellProps) => {
     if (newBoard[currRow][currCol].type === CellType.Blank) {
       // Clicked on a blank.  Reveal it.
       newBoard[currRow][currCol].isRevealed = true
-      newBoard[currRow][currCol].revealClass = revealMap[BLANK]
+      newBoard[currRow][currCol].revealClass = revealMap[NOT_REVEALED]
 
       // Reveal adjacent cells
 
@@ -73,9 +79,7 @@ const Cell = ({ row, col }: CellProps) => {
     }
   }
 
-  const handleCellClick = (e: React.MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-
+  const handleCellClick = () => {
     if (!isTimerRunning) {
       setIsTimerRunning(true)
     }
@@ -87,40 +91,51 @@ const Cell = ({ row, col }: CellProps) => {
     setBoard(newBoard)
   }
 
-  const handleCellRightClick = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(`right click`)
-    e.preventDefault()
-
+  const handleCellRightClick = () => {
     const newBoard = board.map((row) => row.slice())
 
-    if (newBoard[row][col].isRevealed) {
+    if (newBoard[row][col].revealClass === BOMB_FLAGGED.toLowerCase()) {
       newBoard[row][col].revealClass = revealMap[BLANK]
-      newBoard[row][col].isRevealed = false
       setRemainingMines((prev) => prev + 1)
     } else {
       newBoard[row][col].revealClass = revealMap[BOMB_FLAGGED]
-      newBoard[row][col].isRevealed = true
       setRemainingMines((prev) => prev - 1)
     }
 
     setBoard(newBoard)
   }
 
-  const handleOnMouseDown = () => {
+  const handleOnMouseDown = (e: React.MouseEvent<HTMLElement>) => {
     setFaceClass(FaceClass.FaceOoh)
   }
 
-  const handleOnMouseUp = () => {
+  const isRightMB = (e: React.MouseEvent<HTMLElement>) => {
+    let rightMB = false
+
+    if ('which' in e)
+      // Gecko (Firefox), WebKit (Safari/Chrome) & Opera
+      rightMB = e.which == 3
+    else if ('button' in e)
+      // IE, Opera
+      rightMB = e.button == 2
+
+    return rightMB
+  }
+
+  const handleOnMouseUp = (e: React.MouseEvent<HTMLElement>) => {
     setFaceClass(FaceClass.FaceSmile)
+
+    if (isRightMB(e)) {
+      handleCellRightClick()
+    }
   }
 
   return board[row][col].isRevealed ? (
     <div className={`square ${board[row][col].revealClass}`}></div>
   ) : (
     <div
-      className='square blank'
+      className={`square ${board[row][col].revealClass}`}
       onClick={handleCellClick}
-      onContextMenu={handleCellRightClick}
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
     ></div>
