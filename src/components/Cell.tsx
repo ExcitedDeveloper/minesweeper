@@ -35,7 +35,11 @@ const Cell = ({ row, col }: CellProps) => {
       return
 
     // If cell has already been revealed, return
-    if (newBoard[currRow][currCol].isRevealed) return
+    if (
+      newBoard[currRow][currCol].isRevealed ||
+      newBoard[currRow][currCol].revealClass === BOMB_FLAGGED.toLowerCase()
+    )
+      return
 
     if (newBoard[currRow][currCol].type === CellType.Blank) {
       // Clicked on a blank.  Reveal it.
