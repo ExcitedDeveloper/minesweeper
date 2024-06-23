@@ -42,3 +42,11 @@ export enum FaceClass {
   FaceSmile = 'facesmile',
   FaceWin = 'facewin',
 }
+
+export enum GameStatus {
+  Lost,
+  NotStarted,
+  Playing,
+  StartGame,
+  Won,
+}

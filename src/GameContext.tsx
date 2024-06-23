@@ -1,8 +1,21 @@
-import { ReactNode, createContext, useState } from 'react'
-import { BoardType, GameType, FaceClass } from './types/Game'
-import useTimer from './hooks/useTimer'
+import {
+  ReactNode,
+  createContext,
+  useState,
+  useEffect,
+  useRef,
+  MutableRefObject,
+} from 'react'
+import { BoardType, GameType, FaceClass, GameStatus } from './types/Game'
 import { createBoard } from './util/board'
-import { BEGINNER_HEIGHT, BEGINNER_MINES, BEGINNER_WIDTH } from './constants'
+import {
+  BEGINNER_HEIGHT,
+  BEGINNER_MINES,
+  BEGINNER_WIDTH,
+  INTERVAL_TIME,
+  MAX_TIME,
+  MIN_TIME,
+} from './constants'
 
 export type GameContextType = {
   gameType: [GameType, React.Dispatch<React.SetStateAction<GameType>>]
@@ -11,10 +24,15 @@ export type GameContextType = {
   mines: [number, React.Dispatch<React.SetStateAction<number>>]
   marks: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
   remainingMines: [number, React.Dispatch<React.SetStateAction<number>>]
-  isTimerRunning: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
-  useTimer: [number, boolean, React.Dispatch<React.SetStateAction<number>>]
   board: [BoardType, React.Dispatch<React.SetStateAction<BoardType>>]
   faceClass: [string, React.Dispatch<React.SetStateAction<FaceClass>>]
+  gameStatus: [GameStatus, React.Dispatch<React.SetStateAction<GameStatus>>]
+  timer: [
+    number,
+    React.Dispatch<React.SetStateAction<number>>,
+    boolean,
+    React.Dispatch<React.SetStateAction<boolean>>
+  ]
 }
 
 export const GameContext = createContext<GameContextType>({} as GameContextType)
@@ -28,9 +46,6 @@ export const GameProvider = ({ children }: GameProviderProps) => {
   const [mines, setMines] = useState(BEGINNER_MINES)
   const [marks, setMarks] = useState(false)
   const [remainingMines, setRemainingMines] = useState(BEGINNER_MINES)
-  const [isTimerRunning, setIsTimerRunning] = useState(false)
-  const { currentTime, setCurrentTime, timerHasStopped } =
-    useTimer(isTimerRunning)
 
   const defaultBoard = createBoard(
     BEGINNER_WIDTH,
@@ -41,6 +56,42 @@ export const GameProvider = ({ children }: GameProviderProps) => {
 
   const [faceClass, setFaceClass] = useState(FaceClass.FaceSmile)
 
+  const [gameStatus, setGameStatus] = useState(GameStatus.NotStarted)
+
+  const [currentTime, setCurrentTime] = useState(MIN_TIME)
+
+  const [isTimerRunning, setIsTimerRunning] = useState(false)
+
+  const interval: MutableRefObject<number> | undefined = useRef(0)
+
+  useEffect(() => {
+    if (isTimerRunning) {
+      interval.current = setInterval(() => {
+        setCurrentTime((prevTime) => {
+          let newTime = prevTime + 1
+
+          if (newTime >= MAX_TIME) {
+            newTime = MAX_TIME
+            setIsTimerRunning(false)
+            clearInterval(interval.current)
+          } else {
+            setIsTimerRunning(true)
+          }
+
+          return newTime
+        })
+      }, INTERVAL_TIME)
+    } else {
+      // setIsTimerRunning(false)
+      clearInterval(interval.current)
+    }
+    return () => {
+      // TODO : Uncomment?
+      // setIsTimerRunning(false)
+      // clearInterval(interval.current)
+    }
+  }, [isTimerRunning])
+
   const store: GameContextType = {
     gameType: [gameType, setGameType],
     height: [height, setHeight],
@@ -48,10 +99,10 @@ export const GameProvider = ({ children }: GameProviderProps) => {
     mines: [mines, setMines],
     marks: [marks, setMarks],
     remainingMines: [remainingMines, setRemainingMines],
-    isTimerRunning: [isTimerRunning, setIsTimerRunning],
-    useTimer: [currentTime, timerHasStopped, setCurrentTime],
     board: [board, setBoard],
     faceClass: [faceClass, setFaceClass],
+    gameStatus: [gameStatus, setGameStatus],
+    timer: [currentTime, setCurrentTime, isTimerRunning, setIsTimerRunning],
   }
 
   return <GameContext.Provider value={store}>{children}</GameContext.Provider>

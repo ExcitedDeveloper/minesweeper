@@ -1,16 +1,10 @@
-import { useEffect, useContext } from 'react'
-import { GameContext } from '../GameContext'
+import { useContext } from 'react'
 import Counter from './Counter'
+import { GameContext } from '../GameContext'
 
 function Time() {
   const ctx = useContext(GameContext)
-  const [, setIsTimerRunning] = ctx.isTimerRunning
-
-  const [currentTime, timerHasStopped] = ctx.useTimer
-
-  useEffect(() => {
-    setIsTimerRunning(!timerHasStopped)
-  }, [setIsTimerRunning, timerHasStopped])
+  const [currentTime] = ctx.timer
 
   return <Counter currentValue={currentTime} containerClass='time__container' />
 }

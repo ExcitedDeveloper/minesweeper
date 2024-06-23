@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
-import { BoardType, CellType, FaceClass } from '../types/Game'
+import { BoardType, CellType, FaceClass, GameStatus } from '../types/Game'
 import {
   revealMap,
   BLANK,
@@ -22,8 +22,9 @@ const Cell = ({ row, col }: CellProps) => {
   const [width] = ctx.width
   const [board, setBoard] = ctx.board
   const [, setRemainingMines] = ctx.remainingMines
-  const [isTimerRunning, setIsTimerRunning] = ctx.isTimerRunning
+  const [, , isTimerRunning, setIsTimerRunning] = ctx.timer
   const [, setFaceClass] = ctx.faceClass
+  const [, setGameStatus] = ctx.gameStatus
 
   const revealCell = (
     newBoard: BoardType,
@@ -88,6 +89,11 @@ const Cell = ({ row, col }: CellProps) => {
       setIsTimerRunning(true)
     }
 
+    if (board[row][col].type === CellType.Bomb) {
+      setGameStatus(GameStatus.Lost)
+      return
+    }
+
     const newBoard = board.map((row) => row.slice())
 
     revealCell(newBoard, row, col)
@@ -109,7 +115,7 @@ const Cell = ({ row, col }: CellProps) => {
     setBoard(newBoard)
   }
 
-  const handleOnMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+  const handleOnMouseDown = () => {
     setFaceClass(FaceClass.FaceOoh)
   }
 
