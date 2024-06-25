@@ -155,6 +155,6 @@ export const revealMap: { [key: string]: string } = {
 
 export const BLANK = 'Blank'
 export const BOMB_DEATH = 'D'
-export const BOMB_REVEALED = 'bombrevealed'
+export const BOMB_REVEALED = 'BombRevealed'
 export const BOMB_FLAGGED = 'BombFlagged'
 export const NOT_REVEALED = 'K'

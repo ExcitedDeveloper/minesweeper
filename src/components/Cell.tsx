@@ -8,6 +8,7 @@ import {
   BOMB_DEATH,
   BOMB_FLAGGED,
   NOT_REVEALED,
+  BOMB_REVEALED,
 } from '../util/board'
 
 type CellProps = {
@@ -24,7 +25,7 @@ const Cell = ({ row, col }: CellProps) => {
   const [, setRemainingMines] = ctx.remainingMines
   const [, , isTimerRunning, setIsTimerRunning] = ctx.timer
   const [, setFaceClass] = ctx.faceClass
-  const [, setGameStatus] = ctx.gameStatus
+  const [gameStatus, setGameStatus] = ctx.gameStatus
 
   const revealCell = (
     newBoard: BoardType,
@@ -84,17 +85,37 @@ const Cell = ({ row, col }: CellProps) => {
     }
   }
 
+  const showBombs = (newBoard: BoardType) => {
+    for (let currRow = 0; currRow < height; currRow++) {
+      for (let currCol = 0; currCol < width; currCol++) {
+        if (newBoard[currRow][currCol].type === CellType.Bomb) {
+          newBoard[currRow][currCol].revealClass =
+            currRow === row && currCol === col
+              ? revealMap[BOMB_DEATH]
+              : revealMap[BOMB_REVEALED]
+        }
+      }
+    }
+
+    setBoard(newBoard)
+  }
+
   const handleCellClick = () => {
+    if (gameStatus === GameStatus.Lost) {
+      return
+    }
+
     if (!isTimerRunning) {
       setIsTimerRunning(true)
     }
 
+    const newBoard = board.map((row) => row.slice())
+
     if (board[row][col].type === CellType.Bomb) {
       setGameStatus(GameStatus.Lost)
+      showBombs(newBoard)
       return
     }
-
-    const newBoard = board.map((row) => row.slice())
 
     revealCell(newBoard, row, col)
 
@@ -116,6 +137,10 @@ const Cell = ({ row, col }: CellProps) => {
   }
 
   const handleOnMouseDown = () => {
+    if (gameStatus === GameStatus.Lost) {
+      return
+    }
+
     setFaceClass(FaceClass.FaceOoh)
   }
 
@@ -133,6 +158,10 @@ const Cell = ({ row, col }: CellProps) => {
   }
 
   const handleOnMouseUp = (e: React.MouseEvent<HTMLElement>) => {
+    if (gameStatus === GameStatus.Lost) {
+      return
+    }
+
     setFaceClass(FaceClass.FaceSmile)
 
     if (isRightMB(e)) {
