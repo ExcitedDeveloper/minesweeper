@@ -100,6 +100,35 @@ const Cell = ({ row, col }: CellProps) => {
     setBoard(newBoard)
   }
 
+  const flagBombs = (newBoard: BoardType) => {
+    for (let currRow = 0; currRow < height; currRow++) {
+      for (let currCol = 0; currCol < width; currCol++) {
+        if (newBoard[currRow][currCol].type === CellType.Bomb) {
+          newBoard[currRow][currCol].revealClass = revealMap[BOMB_FLAGGED]
+        }
+      }
+    }
+
+    setBoard(newBoard)
+  }
+
+  // When all unrevealed cells contain bombs,
+  // then game is won.
+  const isGameWon = (currBoard: BoardType): boolean => {
+    for (let currRow = 0; currRow < height; currRow++) {
+      for (let currCol = 0; currCol < width; currCol++) {
+        if (
+          currBoard[currRow][currCol].type !== CellType.Bomb &&
+          !currBoard[currRow][currCol].isRevealed
+        ) {
+          return false
+        }
+      }
+    }
+
+    return true
+  }
+
   const handleCellClick = () => {
     if (gameStatus === GameStatus.Lost) {
       return
@@ -120,6 +149,12 @@ const Cell = ({ row, col }: CellProps) => {
     revealCell(newBoard, row, col)
 
     setBoard(newBoard)
+
+    if (isGameWon(newBoard)) {
+      setGameStatus(GameStatus.Won)
+      flagBombs(newBoard)
+      return
+    }
   }
 
   const handleCellRightClick = () => {

@@ -1,7 +1,7 @@
 import { ChangeEvent, useState, useEffect, useContext } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
-import { GameType, BoardData } from '../types/Game'
+import { GameType, BoardData, GameStatus } from '../types/Game'
 import {
   MIN_CUSTOM_MINES,
   MAX_CUSTOM_MINES,
@@ -92,6 +92,7 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const ctx = useContext(GameContext)
   const [, setCurrentTime] = ctx.timer
   const [, setBoard] = ctx.board
+  const [, setGameStatus] = ctx.gameStatus
 
   useEffect(() => {
     setGameType(initBoardData.gameType)
@@ -175,6 +176,8 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     )
 
     setBoard(newBoard)
+
+    setGameStatus(GameStatus.NewGame)
   }
 
   return (

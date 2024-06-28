@@ -45,7 +45,7 @@ export enum FaceClass {
 
 export enum GameStatus {
   Lost,
-  NotStarted,
+  NewGame,
   Playing,
   StartGame,
   Won,

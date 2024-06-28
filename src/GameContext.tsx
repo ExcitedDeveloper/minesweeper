@@ -56,7 +56,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
 
   const [faceClass, setFaceClass] = useState(FaceClass.FaceSmile)
 
-  const [gameStatus, setGameStatus] = useState(GameStatus.NotStarted)
+  const [gameStatus, setGameStatus] = useState(GameStatus.NewGame)
 
   const [currentTime, setCurrentTime] = useState(MIN_TIME)
 
@@ -82,6 +82,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
         })
       }, INTERVAL_TIME)
     } else {
+      // TODO : Uncomment?
       // setIsTimerRunning(false)
       clearInterval(interval.current)
     }
