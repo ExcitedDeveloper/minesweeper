@@ -221,6 +221,10 @@ const Cell = ({ row, col }: CellProps) => {
     }
   }
 
+  if (row >= height || col >= width) {
+    return null
+  }
+
   return board[row][col].isRevealed ? (
     <div className={`square ${board[row][col].revealClass}`}></div>
   ) : (

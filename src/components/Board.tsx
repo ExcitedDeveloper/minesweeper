@@ -21,6 +21,7 @@ const Board = () => {
   const [, setRemainingMines] = ctx.remainingMines
   const [, setCurrentTime] = ctx.timer
   const [board] = ctx.board
+  const [mines] = ctx.mines
 
   useEffect(() => {
     document.documentElement.style.setProperty('--num-cols', `${width}`)
@@ -60,8 +61,9 @@ const Board = () => {
 
   const handleNewGame = useCallback(() => {
     setCurrentTime(MIN_TIME)
+    setRemainingMines(mines)
     resetBoard()
-  }, [resetBoard, setCurrentTime])
+  }, [mines, resetBoard, setCurrentTime, setRemainingMines])
 
   // TODO : Fix missing dependencies without
   // breaking game

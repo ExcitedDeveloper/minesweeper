@@ -9,7 +9,6 @@ import {
   MAX_CUSTOM_HEIGHT,
   MIN_CUSTOM_WIDTH,
   MAX_CUSTOM_WIDTH,
-  MIN_TIME,
   BEGINNER_HEIGHT,
   BEGINNER_WIDTH,
   BEGINNER_MINES,
@@ -90,9 +89,11 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [customMines, setCustomMines] = useState(defaultCustomValues.mines)
   const [marks, setMarks] = useState(false)
   const ctx = useContext(GameContext)
-  const [, setCurrentTime] = ctx.timer
   const [, setBoard] = ctx.board
   const [, setGameStatus] = ctx.gameStatus
+  const [, setWidth] = ctx.width
+  const [, setHeight] = ctx.height
+  const [, setMines] = ctx.mines
 
   useEffect(() => {
     setGameType(initBoardData.gameType)
@@ -167,8 +168,6 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
 
     closeModal({ ...boardData })
 
-    setCurrentTime(MIN_TIME)
-
     const newBoard = createBoard(
       boardData.width,
       boardData.height,
@@ -178,6 +177,10 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
     setBoard(newBoard)
 
     setGameStatus(GameStatus.NewGame)
+
+    setHeight(boardData.height)
+    setWidth(boardData.width)
+    setMines(boardData.mines)
   }
 
   return (
