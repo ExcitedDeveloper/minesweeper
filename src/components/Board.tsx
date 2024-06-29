@@ -65,8 +65,6 @@ const Board = () => {
     resetBoard()
   }, [mines, resetBoard, setCurrentTime, setRemainingMines])
 
-  // TODO : Fix missing dependencies without
-  // breaking game
   useEffect(() => {
     switch (gameStatus) {
       case GameStatus.Lost:
@@ -81,6 +79,7 @@ const Board = () => {
         setRemainingMines(0)
         break
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameStatus])
 
   return <div className='board__container'>{cells}</div>

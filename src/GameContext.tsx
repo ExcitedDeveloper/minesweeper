@@ -82,14 +82,12 @@ export const GameProvider = ({ children }: GameProviderProps) => {
         })
       }, INTERVAL_TIME)
     } else {
-      // TODO : Uncomment?
-      // setIsTimerRunning(false)
+      setIsTimerRunning(false)
       clearInterval(interval.current)
     }
     return () => {
-      // TODO : Uncomment?
-      // setIsTimerRunning(false)
-      // clearInterval(interval.current)
+      setIsTimerRunning(false)
+      clearInterval(interval.current)
     }
   }, [isTimerRunning])
 
