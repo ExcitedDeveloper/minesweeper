@@ -100,12 +100,23 @@ const Cell = ({ row, col }: CellProps) => {
     setBoard(newBoard)
   }
 
-  const flagBombs = (newBoard: BoardType) => {
+  const revealBoard = (newBoard: BoardType) => {
     for (let currRow = 0; currRow < height; currRow++) {
       for (let currCol = 0; currCol < width; currCol++) {
-        if (newBoard[currRow][currCol].type === CellType.Bomb) {
-          newBoard[currRow][currCol].revealClass = revealMap[BOMB_FLAGGED]
+        switch (newBoard[currRow][currCol].type) {
+          case CellType.Bomb:
+            newBoard[currRow][currCol].revealClass = revealMap[BOMB_FLAGGED]
+            break
+          case CellType.Blank:
+            newBoard[currRow][currCol].revealClass = revealMap[NOT_REVEALED]
+            break
+          default:
+            newBoard[currRow][currCol].revealClass =
+              revealMap[newBoard[currRow][currCol].type]
+            break
         }
+
+        board[currRow][currCol].isRevealed = true
       }
     }
 
@@ -118,8 +129,8 @@ const Cell = ({ row, col }: CellProps) => {
     for (let currRow = 0; currRow < height; currRow++) {
       for (let currCol = 0; currCol < width; currCol++) {
         if (
-          currBoard[currRow][currCol].type !== CellType.Bomb &&
-          !currBoard[currRow][currCol].isRevealed
+          currBoard[currRow][currCol].type === CellType.Bomb &&
+          currBoard[currRow][currCol].revealClass !== revealMap[BOMB_FLAGGED]
         ) {
           return false
         }
@@ -152,7 +163,7 @@ const Cell = ({ row, col }: CellProps) => {
 
     if (isGameWon(newBoard)) {
       setGameStatus(GameStatus.Won)
-      flagBombs(newBoard)
+      revealBoard(newBoard)
       return
     }
   }
@@ -169,6 +180,12 @@ const Cell = ({ row, col }: CellProps) => {
     }
 
     setBoard(newBoard)
+
+    if (isGameWon(newBoard)) {
+      setGameStatus(GameStatus.Won)
+      revealBoard(newBoard)
+      return
+    }
   }
 
   const handleOnMouseDown = () => {

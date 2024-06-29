@@ -14,10 +14,10 @@ const Board = () => {
 
   const [cells, setCells] = useState<JSX.Element[]>([])
   const [gameStatus] = ctx.gameStatus
-  const [faceClass, setFaceClass] = ctx.faceClass
+  const [, setFaceClass] = ctx.faceClass
   const [height] = ctx.height
   const [width] = ctx.width
-  const [, , isTimerRunning, setIsTimerRunning] = ctx.timer
+  const [, , , setIsTimerRunning] = ctx.timer
   const [, setRemainingMines] = ctx.remainingMines
   const [, setCurrentTime] = ctx.timer
   const [board] = ctx.board
