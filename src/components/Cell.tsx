@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { SyntheticEvent, useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
 import { BoardType, CellType, FaceClass, GameStatus } from '../types/Game'
@@ -10,11 +10,32 @@ import {
   NOT_REVEALED,
   BOMB_REVEALED,
 } from '../util/board'
+import useLongPress from '../hooks/useLongPress'
 
 type CellProps = {
   isRevealed: boolean
   row: number
   col: number
+}
+
+const longPressCallback = (event: SyntheticEvent) => {
+  alert(`longPressCallback`)
+  console.log(`longPressCallback`, event)
+}
+
+const onStartLongPress = (event: SyntheticEvent) => {
+  alert(`onStartLongPress`)
+  console.log(`onStartLongPress`, event)
+}
+
+const onFinishLongPress = (event: SyntheticEvent) => {
+  alert(`onFinishLongPress`)
+  console.log(`onFinishLongPress`, event)
+}
+
+const onCancelLongPress = (event: SyntheticEvent) => {
+  alert(`onCancelLongPress`)
+  console.log(`onCancelLongPress`, event)
 }
 
 const Cell = ({ row, col }: CellProps) => {
@@ -26,6 +47,13 @@ const Cell = ({ row, col }: CellProps) => {
   const [, , isTimerRunning, setIsTimerRunning] = ctx.timer
   const [, setFaceClass] = ctx.faceClass
   const [gameStatus, setGameStatus] = ctx.gameStatus
+
+  useLongPress(longPressCallback, {
+    threshold: 500,
+    onStart: onStartLongPress,
+    onFinish: onFinishLongPress,
+    onCancel: onCancelLongPress,
+  })
 
   const revealCell = (
     newBoard: BoardType,
