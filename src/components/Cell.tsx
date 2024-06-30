@@ -257,7 +257,7 @@ const Cell = ({ row, col }: CellProps) => {
     <div className={`square ${board[row][col].revealClass}`}></div>
   ) : (
     <div
-      className={`square ${board[row][col].revealClass}`}
+      className={`noselect square ${board[row][col].revealClass}`}
       onClick={handleCellClick}
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
