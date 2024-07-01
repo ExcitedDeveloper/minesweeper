@@ -261,6 +261,8 @@ const Cell = ({ row, col }: CellProps) => {
       onClick={handleCellClick}
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
+      onTouchStart={() => alert(`onTouchStart`)}
+      onTouchEnd={() => alert(`onTouchEnd`)}
     ></div>
   )
 }
