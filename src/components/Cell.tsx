@@ -52,7 +52,7 @@ const Cell = ({ row, col }: CellProps) => {
       onStart: onStartLongPress,
       onFinish: onFinishLongPress,
       onCancel: onCancelLongPress,
-      threshold: 500,
+      threshold: 1000,
     }
   )
 
