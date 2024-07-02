@@ -45,7 +45,6 @@ const Cell = ({ row, col }: CellProps) => {
 
   const attrs = useLongPress(
     () => {
-      alert(`longPressCallback`)
       console.log(`longPressCallback`, event)
     },
     {
