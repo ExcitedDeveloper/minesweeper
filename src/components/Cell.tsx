@@ -1,4 +1,4 @@
-import { SyntheticEvent, useContext } from 'react'
+import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
 import { BoardType, CellType, FaceClass, GameStatus } from '../types/Game'
@@ -10,7 +10,7 @@ import {
   NOT_REVEALED,
   BOMB_REVEALED,
 } from '../util/board'
-import useLongPress from '../hooks/useLongPress'
+import { useLongPress } from '@uidotdev/usehooks'
 
 type CellProps = {
   isRevealed: boolean
@@ -18,22 +18,17 @@ type CellProps = {
   col: number
 }
 
-const longPressCallback = (event: SyntheticEvent) => {
-  alert(`longPressCallback`)
-  console.log(`longPressCallback`, event)
-}
-
-const onStartLongPress = (event: SyntheticEvent) => {
+const onStartLongPress = (event: Event) => {
   alert(`onStartLongPress`)
   console.log(`onStartLongPress`, event)
 }
 
-const onFinishLongPress = (event: SyntheticEvent) => {
+const onFinishLongPress = (event: Event) => {
   alert(`onFinishLongPress`)
   console.log(`onFinishLongPress`, event)
 }
 
-const onCancelLongPress = (event: SyntheticEvent) => {
+const onCancelLongPress = (event: Event) => {
   alert(`onCancelLongPress`)
   console.log(`onCancelLongPress`, event)
 }
@@ -48,12 +43,18 @@ const Cell = ({ row, col }: CellProps) => {
   const [, setFaceClass] = ctx.faceClass
   const [gameStatus, setGameStatus] = ctx.gameStatus
 
-  useLongPress(longPressCallback, {
-    threshold: 500,
-    onStart: onStartLongPress,
-    onFinish: onFinishLongPress,
-    onCancel: onCancelLongPress,
-  })
+  const attrs = useLongPress(
+    () => {
+      alert(`longPressCallback`)
+      console.log(`longPressCallback`, event)
+    },
+    {
+      onStart: onStartLongPress,
+      onFinish: onFinishLongPress,
+      onCancel: onCancelLongPress,
+      threshold: 500,
+    }
+  )
 
   const revealCell = (
     newBoard: BoardType,
@@ -261,8 +262,8 @@ const Cell = ({ row, col }: CellProps) => {
       onClick={handleCellClick}
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
-      onTouchStart={() => alert(`onTouchStart`)}
-      onTouchEnd={() => alert(`onTouchEnd`)}
+      onTouchStart={attrs.onTouchStart}
+      onTouchEnd={attrs.onTouchEnd}
     ></div>
   )
 }
