@@ -19,7 +19,7 @@ type CellProps = {
 }
 
 const onStartLongPress = (event: Event) => {
-  alert(`onStartLongPress`)
+  // alert(`onStartLongPress`)
   console.log(`onStartLongPress`, event)
 }
 
@@ -29,7 +29,7 @@ const onFinishLongPress = (event: Event) => {
 }
 
 const onCancelLongPress = (event: Event) => {
-  alert(`onCancelLongPress`)
+  // alert(`onCancelLongPress`)
   console.log(`onCancelLongPress`, event)
 }
 
