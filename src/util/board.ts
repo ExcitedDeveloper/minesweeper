@@ -143,6 +143,7 @@ export const revealMap: { [key: string]: string } = {
   BombRevealed: 'bombrevealed',
   D: 'bombdeath',
   K: 'open0',
+  Question: 'question',
   '1': 'open1',
   '2': 'open2',
   '3': 'open3',
@@ -158,3 +159,4 @@ export const BOMB_DEATH = 'D'
 export const BOMB_REVEALED = 'BombRevealed'
 export const BOMB_FLAGGED = 'BombFlagged'
 export const NOT_REVEALED = 'K'
+export const QUESTION = 'Question'

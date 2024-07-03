@@ -9,6 +9,7 @@ import {
   BOMB_FLAGGED,
   NOT_REVEALED,
   BOMB_REVEALED,
+  QUESTION,
 } from '../util/board'
 import { useLongPress } from '@uidotdev/usehooks'
 
@@ -42,6 +43,7 @@ const Cell = ({ row, col }: CellProps) => {
   const [, , isTimerRunning, setIsTimerRunning] = ctx.timer
   const [, setFaceClass] = ctx.faceClass
   const [gameStatus, setGameStatus] = ctx.gameStatus
+  const [marks] = ctx.marks
 
   const attrs = useLongPress(
     () => {
@@ -200,8 +202,12 @@ const Cell = ({ row, col }: CellProps) => {
     const newBoard = board.map((row) => row.slice())
 
     if (newBoard[row][col].revealClass === BOMB_FLAGGED.toLowerCase()) {
-      newBoard[row][col].revealClass = revealMap[BLANK]
+      newBoard[row][col].revealClass = marks
+        ? revealMap[QUESTION]
+        : revealMap[BLANK]
       setRemainingMines((prev) => prev + 1)
+    } else if (newBoard[row][col].revealClass === QUESTION.toLowerCase()) {
+      newBoard[row][col].revealClass = revealMap[BLANK]
     } else {
       newBoard[row][col].revealClass = revealMap[BOMB_FLAGGED]
       setRemainingMines((prev) => prev - 1)
