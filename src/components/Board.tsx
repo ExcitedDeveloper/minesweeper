@@ -60,23 +60,46 @@ const Board = () => {
   }, [board, height, width])
 
   const handleNewGame = useCallback(() => {
+    setFaceClass(FaceClass.FaceSmile)
     setCurrentTime(MIN_TIME)
+    setIsTimerRunning(false)
     setRemainingMines(mines)
     resetBoard()
-  }, [mines, resetBoard, setCurrentTime, setRemainingMines])
+  }, [
+    mines,
+    resetBoard,
+    setCurrentTime,
+    setFaceClass,
+    setIsTimerRunning,
+    setRemainingMines,
+  ])
+
+  const handleWon = useCallback(() => {
+    endGame(FaceClass.FaceWin)
+    setRemainingMines(0)
+  }, [endGame, setRemainingMines])
+
+  const handleLostGame = useCallback(() => {
+    endGame(FaceClass.FaceDead)
+  }, [endGame])
+
+  const handlePlaying = useCallback(() => {
+    setIsTimerRunning(true)
+  }, [setIsTimerRunning])
 
   useEffect(() => {
     switch (gameStatus) {
       case GameStatus.Lost:
-        endGame(FaceClass.FaceDead)
+        handleLostGame()
         break
       case GameStatus.NewGame:
-        setFaceClass(FaceClass.FaceSmile)
         handleNewGame()
         break
+      case GameStatus.Playing:
+        handlePlaying()
+        break
       case GameStatus.Won:
-        endGame(FaceClass.FaceWin)
-        setRemainingMines(0)
+        handleWon()
         break
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

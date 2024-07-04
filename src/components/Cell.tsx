@@ -176,6 +176,7 @@ const Cell = ({ row, col }: CellProps) => {
     }
 
     if (!isTimerRunning) {
+      console.log(`setIsTimerRunning true 2`)
       setIsTimerRunning(true)
     }
 
@@ -196,6 +197,8 @@ const Cell = ({ row, col }: CellProps) => {
       revealBoard(newBoard)
       return
     }
+
+    setGameStatus(GameStatus.Playing)
   }
 
   const handleCellRightClick = () => {
@@ -220,6 +223,8 @@ const Cell = ({ row, col }: CellProps) => {
       revealBoard(newBoard)
       return
     }
+
+    setGameStatus(GameStatus.Playing)
   }
 
   const handleOnMouseDown = () => {

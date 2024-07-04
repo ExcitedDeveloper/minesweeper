@@ -74,8 +74,6 @@ export const GameProvider = ({ children }: GameProviderProps) => {
             newTime = MAX_TIME
             setIsTimerRunning(false)
             clearInterval(interval.current)
-          } else {
-            setIsTimerRunning(true)
           }
 
           return newTime
