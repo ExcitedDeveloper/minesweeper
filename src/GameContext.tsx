@@ -86,8 +86,10 @@ export const GameProvider = ({ children }: GameProviderProps) => {
       clearInterval(interval.current)
     }
     return () => {
-      setIsTimerRunning(false)
-      clearInterval(interval.current)
+      // TODO : Delete?
+      // console.log(`setIsTimerRunning false 3`)
+      // setIsTimerRunning(false)
+      // clearInterval(interval.current)
     }
   }, [isTimerRunning])
 
