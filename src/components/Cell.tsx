@@ -35,14 +35,13 @@ const Cell = ({ row, col }: CellProps) => {
     console.log(`onStartLongPress`, event)
   }
 
-  const onFinishLongPress = (event: Event) => {
+  const onFinishLongPress = () => {
     handleCellRightClick()
-    console.log(`onFinishLongPress`, event)
+    alert(`onFinishLongPress`)
   }
 
-  const onCancelLongPress = (event: Event) => {
-    // alert(`onCancelLongPress`)
-    console.log(`onCancelLongPress`, event)
+  const onCancelLongPress = () => {
+    alert(`onCancelLongPress`)
   }
 
   const attrs = useLongPress(
