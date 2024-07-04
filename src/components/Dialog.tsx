@@ -94,7 +94,6 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [, setWidth] = ctx.width
   const [, setHeight] = ctx.height
   const [, setMines] = ctx.mines
-  const [, setRemainingMines] = ctx.remainingMines
 
   useEffect(() => {
     setGameType(initBoardData.gameType)

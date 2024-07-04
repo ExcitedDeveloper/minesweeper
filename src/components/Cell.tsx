@@ -19,21 +19,6 @@ type CellProps = {
   col: number
 }
 
-const onStartLongPress = (event: Event) => {
-  // alert(`onStartLongPress`)
-  console.log(`onStartLongPress`, event)
-}
-
-const onFinishLongPress = (event: Event) => {
-  alert(`onFinishLongPress`)
-  console.log(`onFinishLongPress`, event)
-}
-
-const onCancelLongPress = (event: Event) => {
-  // alert(`onCancelLongPress`)
-  console.log(`onCancelLongPress`, event)
-}
-
 const Cell = ({ row, col }: CellProps) => {
   const ctx = useContext(GameContext)
   const [height] = ctx.height
@@ -44,6 +29,21 @@ const Cell = ({ row, col }: CellProps) => {
   const [, setFaceClass] = ctx.faceClass
   const [gameStatus, setGameStatus] = ctx.gameStatus
   const [marks] = ctx.marks
+
+  const onStartLongPress = (event: Event) => {
+    // alert(`onStartLongPress`)
+    console.log(`onStartLongPress`, event)
+  }
+
+  const onFinishLongPress = (event: Event) => {
+    handleCellRightClick()
+    console.log(`onFinishLongPress`, event)
+  }
+
+  const onCancelLongPress = (event: Event) => {
+    // alert(`onCancelLongPress`)
+    console.log(`onCancelLongPress`, event)
+  }
 
   const attrs = useLongPress(
     () => {
@@ -176,7 +176,6 @@ const Cell = ({ row, col }: CellProps) => {
     }
 
     if (!isTimerRunning) {
-      console.log(`setIsTimerRunning true 2`)
       setIsTimerRunning(true)
     }
 
