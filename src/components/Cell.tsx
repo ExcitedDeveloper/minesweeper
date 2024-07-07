@@ -35,7 +35,8 @@ const Cell = ({ row, col }: CellProps) => {
     console.log(`onStartLongPress`, event)
   }
 
-  const onFinishLongPress = () => {
+  const onFinishLongPress = (e: Event) => {
+    e.preventDefault()
     handleCellRightClick()
     // alert(`onFinishLongPress`)
   }
@@ -272,12 +273,12 @@ const Cell = ({ row, col }: CellProps) => {
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
       onTouchStart={(e) => {
-        e.preventDefault()
+        // e.preventDefault()
         // setIsTouchStarted(true)
         attrs.onTouchStart(e)
       }}
       onTouchEnd={(e) => {
-        e.preventDefault()
+        // e.preventDefault()
         // setIsTouchStarted(false)
         attrs.onTouchEnd(e)
       }}
