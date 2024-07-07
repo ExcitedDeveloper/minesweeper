@@ -170,6 +170,7 @@ const Cell = ({ row, col }: CellProps) => {
   }
 
   const handleCellClick = () => {
+    alert('handle cell click')
     if (gameStatus === GameStatus.Lost) {
       return
     }
@@ -223,8 +224,6 @@ const Cell = ({ row, col }: CellProps) => {
     }
 
     setGameStatus(GameStatus.Playing)
-
-    alert('handled right click')
   }
 
   const handleOnMouseDown = () => {
