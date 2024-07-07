@@ -284,6 +284,7 @@ const Cell = ({ row, col }: CellProps) => {
       onTouchEnd={(e) => {
         setIsTouchStarted(false)
         attrs.onTouchEnd(e)
+        alert(`onTouchEnd`)
       }}
     ></div>
   )
