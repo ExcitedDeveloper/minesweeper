@@ -29,10 +29,9 @@ const Cell = ({ row, col }: CellProps) => {
   const [, setFaceClass] = ctx.faceClass
   const [gameStatus, setGameStatus] = ctx.gameStatus
   const [marks] = ctx.marks
-  // const [isTouchStarted, setIsTouchStarted] = useState(false)
-  // const [handledRightClick, setHandledRightClick] = useState(false)
 
   const onStartLongPress = (event: Event) => {
+    event.preventDefault()
     // alert(`onStartLongPress`)
     console.log(`onStartLongPress`, event)
   }
@@ -202,11 +201,6 @@ const Cell = ({ row, col }: CellProps) => {
   }
 
   const handleCellRightClick = () => {
-    // If in the middle of user touch event
-    // if (isTouchStarted && handledRightClick) return
-
-    // setHandledRightClick(true)
-
     const newBoard = board.map((row) => row.slice())
 
     if (newBoard[row][col].revealClass === BOMB_FLAGGED.toLowerCase()) {
@@ -278,12 +272,12 @@ const Cell = ({ row, col }: CellProps) => {
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
       onTouchStart={(e) => {
-        e.preventDefault()
+        // e.preventDefault()
         // setIsTouchStarted(true)
         attrs.onTouchStart(e)
       }}
       onTouchEnd={(e) => {
-        e.preventDefault()
+        // e.preventDefault()
         // setIsTouchStarted(false)
         attrs.onTouchEnd(e)
       }}
