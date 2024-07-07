@@ -77,3 +77,10 @@
 .bombmisflagged {
   background-position: -72px -59px;
 }
+
+@media only screen and (max-width: 400px) {
+  .square {
+    width: 36px;
+    height: 36px;
+  }
+}
