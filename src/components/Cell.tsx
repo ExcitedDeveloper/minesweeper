@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import './Cell.css'
 import { GameContext } from '../GameContext'
 import { BoardType, CellType, FaceClass, GameStatus } from '../types/Game'
@@ -29,8 +29,8 @@ const Cell = ({ row, col }: CellProps) => {
   const [, setFaceClass] = ctx.faceClass
   const [gameStatus, setGameStatus] = ctx.gameStatus
   const [marks] = ctx.marks
-  const [isTouchStarted, setIsTouchStarted] = useState(false)
-  const [handledRightClick, setHandledRightClick] = useState(false)
+  // const [isTouchStarted, setIsTouchStarted] = useState(false)
+  // const [handledRightClick, setHandledRightClick] = useState(false)
 
   const onStartLongPress = (event: Event) => {
     // alert(`onStartLongPress`)
@@ -203,9 +203,9 @@ const Cell = ({ row, col }: CellProps) => {
 
   const handleCellRightClick = () => {
     // If in the middle of user touch event
-    if (isTouchStarted && handledRightClick) return
+    // if (isTouchStarted && handledRightClick) return
 
-    setHandledRightClick(true)
+    // setHandledRightClick(true)
 
     const newBoard = board.map((row) => row.slice())
 
@@ -278,13 +278,14 @@ const Cell = ({ row, col }: CellProps) => {
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
       onTouchStart={(e) => {
-        setIsTouchStarted(true)
+        e.preventDefault()
+        // setIsTouchStarted(true)
         attrs.onTouchStart(e)
       }}
       onTouchEnd={(e) => {
-        setIsTouchStarted(false)
+        e.preventDefault()
+        // setIsTouchStarted(false)
         attrs.onTouchEnd(e)
-        alert(`onTouchEnd`)
       }}
     ></div>
   )
