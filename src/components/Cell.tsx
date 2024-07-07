@@ -171,7 +171,6 @@ const Cell = ({ row, col }: CellProps) => {
   }
 
   const handleCellClick = () => {
-    alert('handle cell click')
     if (gameStatus === GameStatus.Lost) {
       return
     }
