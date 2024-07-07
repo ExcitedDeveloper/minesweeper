@@ -2,6 +2,7 @@
   background-image: url('../assets/sprite150.gif');
   width: 24px;
   height: 24px;
+  zoom: 1.45;
 }
 
 .blank {
@@ -76,11 +77,4 @@
 
 .bombmisflagged {
   background-position: -72px -59px;
-}
-
-@media only screen and (max-width: 400px) {
-  .square {
-    width: 36px;
-    height: 36px;
-  }
 }
