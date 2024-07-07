@@ -31,7 +31,6 @@ const Cell = ({ row, col }: CellProps) => {
   const [marks] = ctx.marks
 
   const onStartLongPress = (event: Event) => {
-    event.preventDefault()
     // alert(`onStartLongPress`)
     console.log(`onStartLongPress`, event)
   }
@@ -224,6 +223,8 @@ const Cell = ({ row, col }: CellProps) => {
     }
 
     setGameStatus(GameStatus.Playing)
+
+    alert('handled right click')
   }
 
   const handleOnMouseDown = () => {
@@ -272,12 +273,12 @@ const Cell = ({ row, col }: CellProps) => {
       onMouseDown={handleOnMouseDown}
       onMouseUp={handleOnMouseUp}
       onTouchStart={(e) => {
-        // e.preventDefault()
+        e.preventDefault()
         // setIsTouchStarted(true)
         attrs.onTouchStart(e)
       }}
       onTouchEnd={(e) => {
-        // e.preventDefault()
+        e.preventDefault()
         // setIsTouchStarted(false)
         attrs.onTouchEnd(e)
       }}
