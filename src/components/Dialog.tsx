@@ -55,7 +55,6 @@ const defaultCustomValues = {
   mines: '145',
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _gameData: { [key in GameType]: GameData } = {
   [GameType.Beginner]: {
     height: BEGINNER_HEIGHT,
