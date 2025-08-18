@@ -1,7 +1,7 @@
-import { ChangeEvent, useState, useEffect, useContext } from 'react'
+import { ChangeEvent, useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import './Dialog.css'
-import { GameType, BoardData, GameStatus } from '../types/Game'
+import { GameType, BoardData } from '../types/Game'
 import {
   MIN_CUSTOM_MINES,
   MAX_CUSTOM_MINES,
@@ -22,8 +22,7 @@ import {
   CUSTOM_WIDTH,
   CUSTOM_MINES,
 } from '../constants'
-import { GameContext } from '../GameContext'
-import { createBoard } from '../util/board'
+import { useGameStore } from '../store/gameStore'
 
 type DialogProps = {
   modalIsOpen: boolean
@@ -87,12 +86,11 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
   const [customWidth, setCustomWidth] = useState(defaultCustomValues.width)
   const [customMines, setCustomMines] = useState(defaultCustomValues.mines)
   const [marks, setMarks] = useState(false)
-  const ctx = useContext(GameContext)
-  const [, setBoard] = ctx.board
-  const [, setGameStatus] = ctx.gameStatus
-  const [, setWidth] = ctx.width
-  const [, setHeight] = ctx.height
-  const [, setMines] = ctx.mines
+  
+  const setStoreGameType = useGameStore((state) => state.setGameType)
+  const setDimensions = useGameStore((state) => state.setDimensions)
+  const setStoreMarks = useGameStore((state) => state.setMarks)
+  const newGame = useGameStore((state) => state.newGame)
 
   useEffect(() => {
     setGameType(initBoardData.gameType)
@@ -167,19 +165,11 @@ const Dialog = ({ modalIsOpen, closeModal, initBoardData }: DialogProps) => {
 
     closeModal({ ...boardData })
 
-    const newBoard = createBoard(
-      boardData.width,
-      boardData.height,
-      boardData.mines
-    )
-
-    setBoard(newBoard)
-
-    setGameStatus(GameStatus.NewGame)
-
-    setHeight(boardData.height)
-    setWidth(boardData.width)
-    setMines(boardData.mines)
+    setStoreGameType(boardData.gameType)
+    setDimensions(boardData.width, boardData.height, boardData.mines)
+    setStoreMarks(boardData.marks)
+    
+    newGame()
   }
 
   return (

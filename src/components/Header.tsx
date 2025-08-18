@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-nocheck
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, memo } from 'react'
 import './Header.css'
 import Dialog from './Dialog'
 import { BoardData, GameType } from '../types/Game'
-import { GameContext } from '../GameContext'
+import { useGameState } from '../hooks/useGameState'
+import { useGameStore } from '../store/gameStore'
 import Mines from './Mines'
 import Time from './Time'
 import {
@@ -15,9 +14,10 @@ import {
   BEGINNER_MINES,
 } from '../constants'
 
-const Header = () => {
-  const ctx = useContext(GameContext)
-  const [faceClass] = ctx.faceClass
+const Header = memo(() => {
+  const { faceClass } = useGameState()
+  const setDimensions = useGameStore((state) => state.setDimensions)
+  const setMarks = useGameStore((state) => state.setMarks)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [currBoardData, setCurrBoardData] = useState<BoardData>({
@@ -26,10 +26,9 @@ const Header = () => {
     mines: BEGINNER_MINES,
     gameType: GameType.Beginner,
     marks: false,
-    remainingMines: BEGINNER_MINES,
   })
 
-  const closeModal = (boardData: BoardData) => {
+  const closeModal = (boardData?: BoardData) => {
     setModalIsOpen(false)
     boardData && setCurrBoardData(boardData)
   }
@@ -39,21 +38,14 @@ const Header = () => {
   }
 
   useEffect(() => {
-    const [, setHeight] = ctx.height
-    const [, setWidth] = ctx.width
-    const [, setMines] = ctx.mines
-    const [, setMarks] = ctx.marks
-
-    setHeight(currBoardData.height)
-    setWidth(currBoardData.width)
-    setMines((prev) => {
-      return currBoardData.mines < MIN_CUSTOM_MINES ||
-        currBoardData.mines > MAX_CUSTOM_MINES
-        ? prev
+    const validMines = 
+      currBoardData.mines < MIN_CUSTOM_MINES || currBoardData.mines > MAX_CUSTOM_MINES
+        ? BEGINNER_MINES
         : currBoardData.mines
-    })
+    
+    setDimensions(currBoardData.width, currBoardData.height, validMines)
     setMarks(currBoardData.marks)
-  }, [currBoardData, ctx])
+  }, [currBoardData, setDimensions, setMarks])
 
   return (
     <>
@@ -72,6 +64,6 @@ const Header = () => {
       />
     </>
   )
-}
+})
 
 export default Header

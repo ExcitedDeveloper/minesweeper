@@ -1,12 +1,11 @@
-import { useContext } from 'react'
+import { memo } from 'react'
 import Counter from './Counter'
-import { GameContext } from '../GameContext'
+import { useTimer } from '../hooks/useTimer'
 
-function Time() {
-  const ctx = useContext(GameContext)
-  const [currentTime] = ctx.timer
+const Time = memo(() => {
+  const { currentTime } = useTimer()
 
   return <Counter currentValue={currentTime} containerClass='time__container' />
-}
+})
 
 export default Time
