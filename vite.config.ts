@@ -9,5 +9,27 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
+    // Memory optimization settings
+    pool: 'forks',
+    poolOptions: {
+      forks: {
+        singleFork: true,
+      },
+    },
+    // Reduce memory usage
+    isolate: false,
+    // Coverage settings for better memory management
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.test.{ts,tsx}',
+        'src/**/*.spec.{ts,tsx}',
+        'src/test/**',
+        'src/vite-env.d.ts',
+        'src/main.tsx'
+      ],
+    },
   },
 })
